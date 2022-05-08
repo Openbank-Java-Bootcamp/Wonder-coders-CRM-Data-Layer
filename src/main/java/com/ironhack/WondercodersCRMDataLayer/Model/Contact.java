@@ -19,7 +19,7 @@ public class Contact {
 
     private String email;
 
-    @OneToOne(mappedBy = "contact")
+    @OneToOne(mappedBy = "decisionMaker")
     private Opportunity opportunity;
 
     @ManyToOne
