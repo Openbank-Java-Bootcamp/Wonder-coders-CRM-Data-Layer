@@ -16,7 +16,6 @@ public class SalesRep {
 
     private String name;
 
-    /*
     @OneToMany(mappedBy = "salesRepId")
     private Set<Lead> leads;
 
@@ -25,7 +24,6 @@ public class SalesRep {
 
     @OneToMany(mappedBy = "salesRepId")
     private Set<Contact> contacts;
-    */
 
     // Constructors:
     public SalesRep() {}
