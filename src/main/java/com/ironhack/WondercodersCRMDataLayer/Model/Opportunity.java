@@ -24,7 +24,7 @@ public class Opportunity {
     @JoinColumn(name = "account", referencedColumnName = "account_id")
     private Account account;
     @ManyToOne
-    @JoinColumn(name = "sales_rep", referencedColumnName = "salesRep_id")
+    @JoinColumn(name = "sales_rep", referencedColumnName = "sales_rep_id")
     private SalesRep salesRep;
 
     public Opportunity() {
