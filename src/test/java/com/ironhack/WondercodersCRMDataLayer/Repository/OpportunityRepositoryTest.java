@@ -35,12 +35,30 @@ class OpportunityRepositoryTest {
                 new Contact("Paula", "998877665", "olatz@gmail.com")
         ));
 
-        /*opportunities = opportunityRepository.saveAll(List.of(
-                new Opportunity(Product.FLATBED, 40, Status.OPEN, "Nuria", )
-        ));*/
+        accounts = accountRepository.saveAll(List.of(
+                new Account("Mercadona", Industry.MEDICAL, 30, "Sueca", "Spain")
+        ));
+
+        salesReps = salesRepRepository.saveAll(List.of(
+                new SalesRep("Rep")
+        ));
+
+        opportunities = opportunityRepository.saveAll(List.of(
+                new Opportunity(Product.FLATBED, 40, Status.OPEN, contacts.get(0), accounts.get(0), salesReps.get(0))
+        ));
     }
 
     @AfterEach
     void tearDown() {
+        opportunityRepository.deleteAll();
+        salesRepRepository.deleteAll();
+        accountRepository.deleteAll();
+        contactRepository.deleteAll();
     }
+
+@Test
+    public void findAllBySalesRepId_ValidData_ListOpportunities() {
+    List<Object[]> result = opportunityRepository.findAllBySalesRepId();
+    assertEquals(1, result.size());
+}
 }
