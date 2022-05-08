@@ -10,26 +10,25 @@ import java.util.List;
 
 @Repository
 public interface OpportunityRepository extends JpaRepository<Opportunity, Integer> {
-    /****** Sales Rep ******/
     @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
             "GROUP BY sales_rep_id", nativeQuery = true)
-    List<Opportunity> findAllBySalesRepId(); // All Opportunities by SalesRep
+    List<Object[]> findAllBySalesRepId(); // All Opportunities by SalesRep
 
     @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
             "GROUP BY sales_rep_id HAVING opportunity.status = :status", nativeQuery = true)
-    List<Opportunity> findAllByStatusAndSalesRepId(@Param("status") Status status);
+    List<Object[]> findAllByStatusAndSalesRepId(@Param("status") Status status);
 
     @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
             "GROUP BY product", nativeQuery = true)
-    List<Opportunity> findAllByProduct(); // All Opportunities by the product
+    List<Object[]> findAllByProduct(); // All Opportunities by the product
 
     @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
             "GROUP BY product HAVING opportunity.status = :product", nativeQuery = true)
-    List<Opportunity> findAllByStatusWonAndProduct(@Param("product") Product product);
+    List<Object[]> findAllByStatusWonAndProduct(@Param("product") Product product);
 
     @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
