@@ -25,18 +25,18 @@ public class Opportunity {
     private Account account;
     @ManyToOne
     @JoinColumn(name = "sales_rep", referencedColumnName = "sales_rep_id")
-    private SalesRep salesRep;
+    private SalesRep salesRepId;
 
     public Opportunity() {
     }
 
-    public Opportunity(Product product, int quantity, Status status, Contact decisionMaker, Account account, SalesRep salesRep) {
+    public Opportunity(Product product, int quantity, Status status, Contact decisionMaker, Account account, SalesRep salesRepId) {
         this.product = product;
         this.quantity = quantity;
         this.status = status;
         this.decisionMaker = decisionMaker;
         this.account = account;
-        this.salesRep = salesRep;
+        this.salesRepId = salesRepId;
     }
 
     public Integer getOpportunityId() {
@@ -83,12 +83,12 @@ public class Opportunity {
         this.account = account;
     }
 
-    public SalesRep getSalesRep() {
-        return salesRep;
+    public SalesRep getSalesRepId() {
+        return salesRepId;
     }
 
-    public void setSalesRep(SalesRep salesRep) {
-        this.salesRep = salesRep;
+    public void setSalesRepId(SalesRep salesRepId) {
+        this.salesRepId = salesRepId;
     }
 
     @Override
@@ -96,12 +96,12 @@ public class Opportunity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Opportunity that = (Opportunity) o;
-        return quantity == that.quantity && Objects.equals(opportunityId, that.opportunityId) && product == that.product && status == that.status && Objects.equals(decisionMaker, that.decisionMaker) && Objects.equals(account, that.account) && Objects.equals(salesRep, that.salesRep);
+        return quantity == that.quantity && Objects.equals(opportunityId, that.opportunityId) && product == that.product && status == that.status && Objects.equals(decisionMaker, that.decisionMaker) && Objects.equals(account, that.account) && Objects.equals(salesRepId, that.salesRepId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(opportunityId, product, quantity, status, decisionMaker, account, salesRep);
+        return Objects.hash(opportunityId, product, quantity, status, decisionMaker, account, salesRepId);
     }
 
     @Override
