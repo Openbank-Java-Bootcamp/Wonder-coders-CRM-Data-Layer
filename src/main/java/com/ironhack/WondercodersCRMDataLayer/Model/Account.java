@@ -42,14 +42,14 @@ public class Account {
     public Account() {
     }
 
-    public Account(String companyName, Industry industry, int employeeCount, String city, String country, List<Contact> contactList, List<Opportunity> opportunityList) {
+    public Account(String companyName, Industry industry, int employeeCount, String city, String country) {
         this.companyName = companyName;
         this.industry = industry;
         this.employeeCount = employeeCount;
         this.city = city;
         this.country = country;
-        this.contactList = contactList;
-        this.opportunityList = opportunityList;
+        this.contactList = new ArrayList<>();
+        this.opportunityList = new ArrayList<>();
     }
 
     public Integer getAccountId() {
