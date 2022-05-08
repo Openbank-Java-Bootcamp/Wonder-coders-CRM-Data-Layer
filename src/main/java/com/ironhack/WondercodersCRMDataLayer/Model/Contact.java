@@ -26,6 +26,10 @@ public class Contact {
     @JoinColumn (name = "account_id")
     private Account account;
 
+    @ManyToOne
+    @JoinColumn (name = "sales_rep_id")
+    private SalesRep salesRepId;
+
     public Contact() {
     }
 
