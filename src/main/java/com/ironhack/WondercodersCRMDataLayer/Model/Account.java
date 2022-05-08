@@ -14,6 +14,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private Integer accountId;
 
     @Column(name = "company_name")
@@ -32,8 +33,7 @@ public class Account {
     @Column(name = "country")
     private String country;
 
-    @OneToMany
-    @JoinColumn(name = "contact", referencedColumnName = "contact_id")
+    @OneToMany(mappedBy = "account")
     private List<Contact> contactList;
 
     @OneToMany(mappedBy = "account")
