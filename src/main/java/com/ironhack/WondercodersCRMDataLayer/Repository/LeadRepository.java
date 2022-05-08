@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface LeadRepository extends JpaRepository<Lead, Integer> {
 
-    @Query("SELECT salesRepName,COUNT(lead) FROM Lead GROUP BY salesRep")
-    List<Object[]> reportLeadBySalesRep();
+    @Query(value = "SELECT sales_rep.name, COUNT(*)" +
+            "FROM Lead" +
+            "INNER JOIN SalesRep ON leads.sales_rep_id = sales_rep.sales_rep_id" +
+            "GROUP BY leads.sales_rep_id", nativeQuery = true)
+    List<Object[]> reportLeadBySalesRepId();
 }

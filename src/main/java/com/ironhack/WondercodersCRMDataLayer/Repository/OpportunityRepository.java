@@ -11,28 +11,26 @@ import java.util.List;
 @Repository
 public interface OpportunityRepository extends JpaRepository<Opportunity, Integer> {
     /****** Sales Rep ******/
-    @Query("SELECT COUNT(*)" +
+    @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
-            "GROUP BY salesRep")
-    List<Opportunity> findAllBySalesRep(); // All Opportunities by SalesRep
+            "GROUP BY sales_rep_id", nativeQuery = true)
+    List<Opportunity> findAllBySalesRepId(); // All Opportunities by SalesRep
 
-    @Query("SELECT COUNT(*)" +
+    @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
-            "GROUP BY salesRep HAVING opportunity.status = :status")
-    List<Opportunity> findAllByStatusAndSalesRep(@Param("status") Status status);
+            "GROUP BY sales_rep_id HAVING opportunity.status = :status", nativeQuery = true)
+    List<Opportunity> findAllByStatusAndSalesRepId(@Param("status") Status status);
 
-    /****** Product ******/
-    @Query("SELECT COUNT(*)" +
+    @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
-            "GROUP BY product")
+            "GROUP BY product", nativeQuery = true)
     List<Opportunity> findAllByProduct(); // All Opportunities by the product
 
-    @Query("SELECT COUNT(*)" +
+    @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
-            "GROUP BY product HAVING opportunity.status = :product")
+            "GROUP BY product HAVING opportunity.status = :product", nativeQuery = true)
     List<Opportunity> findAllByStatusWonAndProduct(@Param("product") Product product);
 
-    /****** Country ******/
     @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
             "INNER JOIN Account ON opportunity.account = account.account_id" +
@@ -45,7 +43,6 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
             "GROUP BY account.country HAVING opportunity.status = :status", nativeQuery = true)
     List<Object[]> findAllByStatusWonAndCountry(@Param("status") Status status);
 
-    /****** City ******/
     @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
             "INNER JOIN Account ON opportunity.account = account.account_id" +
@@ -58,7 +55,6 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
             "GROUP BY account.city HAVING opportunity.status = :status", nativeQuery = true)
     List<Object[]> findAllByStatusWonAndCity(@Param("status") Status status);
 
-    /****** Industry ******/
     @Query(value = "SELECT COUNT(*)" +
             "FROM Opportunity" +
             "INNER JOIN Account ON opportunity.account = account.account_id" +
@@ -71,45 +67,43 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
             "GROUP BY account.industry HAVING opportunity.status = :status", nativeQuery = true)
     List<Object[]> findAllByStatusWonAndIndustry(@Param("status") Status status);
 
-    /****** Quantity ******/
-    @Query("SELECT product, AVG(quantity) AS Mean quantity" +
+    @Query(value = "SELECT product, AVG(quantity) AS Mean quantity" +
             "FROM opportunity" +
-            "GROUP BY product")
+            "GROUP BY product", nativeQuery = true)
     List<Object[]> meanQuantity(); // Mean quantity of products order
 
-    @Query("SELECT TOP 1" +
+    @Query(value = "SELECT TOP 1" +
             "PERCENTILE_CONT(0.5) WITHIN GROUP product OVER() AS Media quantity" +
-            "FROM opportunity")
+            "FROM opportunity", nativeQuery = true)
     List<Object[]> medianQuantity(); // Median quantity of products order
 
-    @Query("SELECT product, MAX(quantity) AS Maximum quantity" +
+    @Query(value = "SELECT product, MAX(quantity) AS Maximum quantity" +
             "FROM opportunity" +
-            "GROUP BY product")
+            "GROUP BY product", nativeQuery = true)
     List<Object[]> maxQuantity(); // Maximum quantity of products order
 
-    @Query("SELECT product, MIN(quantity) AS Minimum quantity" +
+    @Query(value = "SELECT product, MIN(quantity) AS Minimum quantity" +
             "FROM opportunity" +
-            "GROUP BY product")
+            "GROUP BY product", nativeQuery = true)
     List<Object[]> minQuantity(); // Minimum quantity of products order
 
-    /****** Opportunity ******/
-    @Query("SELECT account, AVG(COUNT(*)) AS Mean quantity" +
+    @Query(value = "SELECT account, AVG(COUNT(*)) AS Mean quantity" +
             "FROM opportunity" +
-            "GROUP BY account")
+            "GROUP BY account", nativeQuery = true)
     List<Object[]> meanOpportunities(); // Mean number of Opportunities associated with an Account
 
-    @Query("SELECT TOP 1" +
+    @Query(value = "SELECT TOP 1" +
             "PERCENTILE_CONT(0.5) WITHIN GROUP account OVER() AS Media quantity" +
-            "FROM opportunity")
+            "FROM opportunity", nativeQuery = true)
     List<Object[]> medianOpportunities(); // Median number of Opportunities associated with an Account
 
-    @Query("SELECT account, MAX(COUNT(*)) AS Maximum quantity" +
+    @Query(value = "SELECT account, MAX(COUNT(*)) AS Maximum quantity" +
             "FROM opportunity" +
-            "GROUP BY account")
+            "GROUP BY account", nativeQuery = true)
     List<Object[]> maxOpportunities(); // Maximum number of Opportunities associated with an Account
 
-    @Query("SELECT account, MIN(COUNT(*)) AS Minimum quantity" +
+    @Query(value = "SELECT account, MIN(COUNT(*)) AS Minimum quantity" +
             "FROM opportunity" +
-            "GROUP BY account")
+            "GROUP BY account", nativeQuery = true)
     List<Object[]> minOpportunities(); // Minimum number of Opportunities associated with an Account
 }
