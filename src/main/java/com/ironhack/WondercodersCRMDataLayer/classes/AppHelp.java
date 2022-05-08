@@ -8,6 +8,56 @@ import java.util.Scanner;
 
 public class AppHelp {
 
+    // INPUT-VALIDATION --------------------------------------------------------------
+
+    // Ask for email
+    public static String askForEmail(String question) {
+        boolean ok;
+        String entry = "";
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.println(question);
+            entry = scanner.nextLine();
+            ok = entry.matches(
+                    "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$"
+            );
+            if(!ok) System.err.println("You did not introduce a valid email");
+        } while (!ok);
+        return entry;
+
+    }
+
+    // Ask for phone number
+    public static String askForPhoneNumber(String question) {
+        boolean ok;
+        String entry = "";
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.println(question);
+            entry = scanner.nextLine();
+            ok = entry.matches(
+                    "^\\d{9}$"
+            );
+            if(!ok) System.err.println("You did not introduce a valid phone number");
+        } while (!ok);
+        return entry;
+
+    }
+    // Ask for YES / NO
+    public static String askForYesOrNo(String question) {
+        boolean ok;
+        String entry = "";
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.println(question);
+            entry = scanner.nextLine();
+            ok = entry.equals("yes") || entry.equals("yes") ? true : false;
+            if(!ok) System.err.println("Only 'yes' and 'no' are valid answers");
+        } while (!ok);
+        return entry;
+
+    }
+
     // Ask user for a String
     public static String askForString(String question) {
         System.out.println(question);
