@@ -30,7 +30,7 @@ public class SalesRep {
     public SalesRep(String name) { this.name = name; }
 
     // Getters & setters
-    public long getSalesRepId() { return salesRepId; }
+    public Integer getSalesRepId() { return salesRepId; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
