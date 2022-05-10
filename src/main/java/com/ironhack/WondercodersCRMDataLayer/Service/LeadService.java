@@ -167,7 +167,7 @@ public class LeadService {
             } else {
                 //Ask for existing account id.
                 int accountId = AppHelp.askForInt("Existing Account id : ");
-                if (accountpRepository.findByAccountId(accountId).isPresent()) {
+                if (accountRepository.findByAccountId(accountId).isPresent()) {
                     newAccount = accountRepository.findByAccountId(accountId).get();
                     accountRepository.deleteById(accountId);
                 } else {
