@@ -2,6 +2,7 @@ package com.ironhack.WondercodersCRMDataLayer.classes;
 
 import com.ironhack.WondercodersCRMDataLayer.Enums.Color;
 import com.ironhack.WondercodersCRMDataLayer.Repository.SalesRepRepository;
+import com.ironhack.WondercodersCRMDataLayer.Service.SalesRepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,8 @@ public class App {
 
     @Autowired
     public SalesRepRepository salesRepRepository;
+    @Autowired
+    public SalesRepService salesRepService;
 
     public boolean isExit() {
         return exit;
@@ -36,6 +39,7 @@ public class App {
         // APP
         Command commandList = new Command("command list", "command list", "print list of application's working commands", () -> Command.printCommandsTable());
         Command exit = new Command("exit", "exit", "quit CRM application", () -> exitApp());
+        Command sayHi = new Command("say hi", "say hi", "say hi!!!!", () -> salesRepService.sayHi());
 
         /*
         // CONTACTS
