@@ -36,15 +36,19 @@ class OpportunityRepositoryTest {
         ));
 
         accounts = accountRepository.saveAll(List.of(
-                new Account("Mercadona", Industry.MEDICAL, 30, "Sueca", "Spain")
+                new Account("Mercadona", Industry.MEDICAL, 30, "Sueca", "Spain"),
+                new Account("Consum", Industry.PRODUCE, 40, "Cullera", "Spain")
         ));
 
         salesReps = salesRepRepository.saveAll(List.of(
-                new SalesRep("Rep")
+                new SalesRep(1,"Rep"),
+                new SalesRep(2,"Rep2")
         ));
 
         opportunities = opportunityRepository.saveAll(List.of(
-                new Opportunity(Product.FLATBED, 40, Status.OPEN, contacts.get(0), accounts.get(0), salesReps.get(0))
+                new Opportunity(Product.FLATBED, 40, Status.OPEN, contacts.get(0), accounts.get(0), salesReps.get(0)),
+                new Opportunity(Product.BOX, 20, Status.CLOSED_LOST, contacts.get(1), accounts.get(1), salesReps.get(1)),
+                new Opportunity(Product.HYBRID, 30, Status.CLOSED_WON, contacts.get(2), accounts.get(1), salesReps.get(0))
         ));
     }
 
@@ -56,9 +60,17 @@ class OpportunityRepositoryTest {
         contactRepository.deleteAll();
     }
 
-@Test
+    @Test
     public void findAllBySalesRepId_ValidData_ListOpportunities() {
-    List<Object[]> result = opportunityRepository.findAllBySalesRepId();
-    assertEquals(1, result.size());
-}
+        List<Object[]> result = opportunityRepository.findAllBySalesRepId();
+        assertEquals(2, result.size());
+        assertEquals("Rep", result.get(0)[0]);
+    }
+
+    @Test
+    public void findAllByStatusAndSalesRepId_ValidData_ListOpportunities() {
+        List<Object[]> result = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_WON);
+        assertEquals(1, result.size());
+        assertEquals("Rep2", result.get(0)[0]);
+    }
 }

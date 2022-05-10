@@ -1,20 +1,28 @@
 package com.ironhack.WondercodersCRMDataLayer.classes;
 
 import com.ironhack.WondercodersCRMDataLayer.Enums.Color;
+import com.ironhack.WondercodersCRMDataLayer.Repository.SalesRepRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class App {
 
-    private static boolean exit = false;
-    private static String currentCommand;
-    private static String currentId;
+    private boolean exit = false;
+    private String currentCommand;
+    private String currentId;
 
-    public static boolean isExit() {
+    @Autowired
+    public SalesRepRepository salesRepRepository;
+
+    public boolean isExit() {
         return exit;
     }
-    public static String getCurrentId() { return currentId; }
-    public static String getCurrentCommand() { return currentCommand; }
+    public String getCurrentId() { return currentId; }
+    public String getCurrentCommand() { return currentCommand; }
 
-    public static void initialize() {
+    public void initialize() {
+        salesRepRepository.findAll();
         setAppCommands();
         showIntro();
         do {
@@ -23,7 +31,7 @@ public class App {
         } while (!isExit());
     }
 
-    public static void setAppCommands() {
+    public void setAppCommands() {
         // COMMANDS:
         // APP
         Command commandList = new Command("command list", "command list", "print list of application's working commands", () -> Command.printCommandsTable());
@@ -50,7 +58,7 @@ public class App {
         */
     }
 
-    public static void showIntro() {
+    public void showIntro() {
         TextColor.changeTo(Color.WHITE_BOLD_BRIGHT);
         System.out.println(
                 // Text block
@@ -72,7 +80,7 @@ public class App {
         Command.printCommandsTable();
     }
 
-    public static String setCurrentCommandAndId() {
+    public String setCurrentCommandAndId() {
         currentCommand = null;
         currentId = null;
 
@@ -92,7 +100,7 @@ public class App {
         return nextCommand;
     }
 
-    public static void executeCommand(String nextCommand) {
+    public void executeCommand(String nextCommand) {
         // Execute command
         if(Command.getCommandsList().containsKey(currentCommand)) {
             Command.getCommandsList().get(currentCommand).execute();
@@ -101,7 +109,7 @@ public class App {
         }
     }
 
-    public static void exitApp() {
+    public void exitApp() {
         System.out.println("Closing CRM app");
         exit = true;
     }
