@@ -18,13 +18,13 @@ public class Opportunity {
     @Enumerated(EnumType.STRING)
     private Status status;
     @OneToOne
-    @JoinColumn(name = "decision_maker", referencedColumnName = "contact_id")
+    @JoinColumn(name = "decision_maker")
     private Contact decisionMaker;
     @ManyToOne
-    @JoinColumn(name = "account", referencedColumnName = "account_id")
+    @JoinColumn(name = "account")
     private Account account;
     @ManyToOne
-    @JoinColumn(name = "sales_rep", referencedColumnName = "sales_rep_id")
+    @JoinColumn(name = "sales_rep")
     private SalesRep salesRepId;
 
     public Opportunity() {
