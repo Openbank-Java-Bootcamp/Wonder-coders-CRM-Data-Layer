@@ -10,7 +10,7 @@ import java.util.Set;
 public class SalesRep {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sales_rep_id")
     private Integer salesRepId;
 
@@ -36,6 +36,7 @@ public class SalesRep {
 
     // Getters & setters
     public Integer getSalesRepId() { return salesRepId; }
+    public void setSalesRepId(Integer salesRepId) { this.salesRepId = salesRepId; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

@@ -38,7 +38,7 @@ public class Command {
         // Title for commands table:
         String title = "COMMAND LIST";
         // Headers set the size of each column:
-        String[] headers = {"COMMAND                ", "       ", "DESCRIPTION                                          "};
+        String[] headers = {"COMMAND                            ", "       ", "DESCRIPTION                                          "};
         // Convert map to List<String[]>
         List<String[]> list = new ArrayList<>();
         commandsList.forEach((key, value) -> {

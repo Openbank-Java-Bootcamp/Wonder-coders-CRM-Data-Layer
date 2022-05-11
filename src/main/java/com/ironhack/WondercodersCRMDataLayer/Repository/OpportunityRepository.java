@@ -19,8 +19,8 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
     @Query(value = "SELECT product, COUNT(*) FROM Opportunity GROUP BY product", nativeQuery = true)
     List<Object[]> findAllByProduct(); // All Opportunities by the product
 
-    @Query(value = "SELECT product, COUNT(*) FROM Opportunity GROUP BY product HAVING opportunity.status = :product", nativeQuery = true)
-    List<Object[]> findAllByStatusAndProduct(@Param("product") Product product); // All Status Opportunities by product
+    @Query(value = "SELECT product, COUNT(*) FROM Opportunity GROUP BY product HAVING opportunity.status = :status", nativeQuery = true)
+    List<Object[]> findAllByStatusAndProduct(@Param("status") Status status); // All Status Opportunities by product
 
     @Query(value = "SELECT account.country, COUNT(*) FROM Opportunity INNER JOIN Account ON opportunity.account = account.account_id GROUP BY account.country", nativeQuery = true)
     List<Object[]> findAllByCountry(); // All Opportunities by the country
