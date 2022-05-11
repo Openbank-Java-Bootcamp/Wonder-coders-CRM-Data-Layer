@@ -12,7 +12,7 @@ This tool will make tracking prospective and existing customers through the sale
 
 ## Technical aspects
 
-The game is entirely based on the App class and its initialize() method. This method initializes the application, sets a list of commands and asks the user for next command to execute. Every method nedded in the App is inside this list of commands.  
+The application is entirely based on the App class and its initialize() method. This method initializes the application, sets a list of commands and asks the user for next command to execute. Every method nedded in the App is inside this list of commands.  
 
 The methods contained in AppHelp class ask and receive information from the user or show information to the user.
 
@@ -41,6 +41,6 @@ TextColor class is a library of different colors for the log to be printed out.
 
 A project by Núria Mafé, Olatz Izagirre, Paula Kamisato and Beatriz Pérez.
 
-Link to our trello board : https://trello.com/b/7imiO5WD/homework-2-crm
+Link to our trello board : https://trello.com/b/csX2n0Ki/homework-3-wondercoders
 
 
