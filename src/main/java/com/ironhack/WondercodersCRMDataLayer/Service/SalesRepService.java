@@ -21,8 +21,4 @@ public class SalesRepService {
         return salesRepRepository.save(salesRep);
     }
 
-    public void sayHi() {
-        System.out.println("Hi!!!");
-    }
-
 }
