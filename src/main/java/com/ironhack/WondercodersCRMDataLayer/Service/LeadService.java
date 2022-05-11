@@ -1,14 +1,15 @@
-/*package com.ironhack.WondercodersCRMDataLayer.Service;
+package com.ironhack.WondercodersCRMDataLayer.Service;
 
-import com.ironhack.WondercodersCRMDataLayer.Model.Contact;
-import com.ironhack.WondercodersCRMDataLayer.Model.Lead;
-import com.ironhack.WondercodersCRMDataLayer.Model.Opportunity;
-import com.ironhack.WondercodersCRMDataLayer.Repository.ContactRepository;
-import com.ironhack.WondercodersCRMDataLayer.Repository.LeadRepository;
-import com.ironhack.WondercodersCRMDataLayer.Repository.OpportunityRepository;
+import com.ironhack.WondercodersCRMDataLayer.Enums.Industry;
+import com.ironhack.WondercodersCRMDataLayer.Enums.Product;
+import com.ironhack.WondercodersCRMDataLayer.Model.*;
+import com.ironhack.WondercodersCRMDataLayer.Repository.*;
+import com.ironhack.WondercodersCRMDataLayer.classes.App;
+import com.ironhack.WondercodersCRMDataLayer.classes.AppHelp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,79 +24,57 @@ public class LeadService {
     private ContactRepository contactRepository;
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private ContactService contactService;
+    App app = new App();
+    AppHelp appHelp = new AppHelp();
 
-    public void reportLeadBySalesRep(){
-       List<Object[]> leads = leadRepository.reportLeadBySalesRep();
-        String l1 = "%-2.2s";
-        String s1 = "%-54.54s";
-        String s2 = "%-54.54s";
-        String l2 = "%2.2s";
-        String format = l1 + " " + s1 + " " + s2 + " " + l2;
-        System.out.print(TextColor.BLUE);
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.println("| LEADS BY SALES REP                                                                                              |");
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.format(format, "| ","SALES REP NAME", "LEADS COUNT", " |");
-        System.out.println();
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        for(Object[] object : leads) {
-            System.out.format(format, "|", object[0], object[1], "|");
-            System.out.println();
+
+    public void reportLeadBySalesRep() {
+        List<Object[]> leads = leadRepository.reportLeadBySalesRepId();
+        String title = "LEAD REPORT BY SALES REP";
+        String[] headers = {"SALES REP NAME                                    ", "LEAD COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : leads) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
         }
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.print(TextColor.RESET);
-
+        appHelp.printTable(title, headers, list);
     }
 
     public void showLead(Lead newLead) {
-        String l1 = "%-2.2s";
-        String s1 = "%-7.7s";
-        String s2 = "%-25.25s";
-        String s3 = "%-25.25s";
-        String s4 = "%-25.25s";
-        String s5 = "%-23.23s";
-        String l2 = "%2.2s";
-        String format = l1 + " " + s1 + " " + s2 + " " + s3 + " " + s4 + " " + s5 + " " + l2;
-        System.out.print(TextColor.BLUE);
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.println("| LEAD                                                                                                            |");
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.format(format, "| ", "ID", "NAME", "PHONE NUMBER", "EMAIL", "COMPANY NAME", "|");
-        System.out.println();
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.format(format, "|", newLead.getLeadId(), newLead.getName(), newLead.getPhoneNumber(), newLead.getEmail(), newLead.getCompanyName(), "|");
-        System.out.println();
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.print(TextColor.RESET);
+        String title = "LEAD";
+        String[] headers = {"ID      ", "NAME                      ", "PHONE NUMBER              ", "EMAIL                     ", "COMPANY NAME             "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {Integer.toString(newLead.getLeadId()), newLead.getName(), newLead.getPhoneNumber(), newLead.getEmail(), newLead.getCompanyName()};
+        list.add(values);
+        appHelp.printTable(title, headers, list);
     }
 
-    public void newLead() {
-        String name = AppHelp.askForString("Name :");
-        String phoneNumber = AppHelp.askForString("Phone number: ");
-        String email = AppHelp.askForString("Email :");
-        String companyName = AppHelp.askForString("Company name :");
-        int salesRepId = AppHelp.askForInt("Sales Rep id :");
-        if (salesRepRepository.findBySalesRepId(salesRepId).isPresent()) {
-            SalesRep salesRep = salesRepRepository.findBySalesRepId(salesRepId).get();
-        } else {
-            while (salesRepRepository.findBySalesRepId(salesRepId).isEmpty()) {
-                System.err.println("No Sales Rep matches '" + salesRepId + "' --> Choose a Sales Rep from the following available ids list.");
-                salesRepRepository.findAll();
-                salesRepId = AppHelp.askForInt("Sales Rep id :");
-            }
-            SalesRep salesRep = salesRepRepository.findBySalesRepId(salesRepId).get();
+    /*public void newLead() {
+        String name = appHelp.askForString("Name :");
+        String phoneNumber = appHelp.askForString("Phone number: ");
+        String email = appHelp.askForString("Email :");
+        String companyName = appHelp.askForString("Company name :");
+        int salesRepId = appHelp.askForInt("Sales Rep id :");
+        SalesRep salesRep = new SalesRep();
+        while (salesRepRepository.findById(salesRepId).isEmpty()) {
+            System.err.println("No Sales Rep matches '" + salesRepId + "' --> Choose a Sales Rep from the following available ids list.");
+            showSalesReps();
+            salesRepId = AppHelp.askForInt("Sales Rep id :");
         }
+        salesRep.setSalesRepId(salesRepId);
+        salesRep = salesRepRepository.findById(salesRepId).get();
         Lead newLead = new Lead(name, phoneNumber, email, companyName, salesRep);
         leadRepository.save(newLead);
         System.out.println("New Lead created");
         showLead(newLead);
-    }
+    }*/
 
     public void lookUpLead() {
-        int id = Integer.parseInt(App.getCurrentId());
+        int id = Integer.parseInt(app.getCurrentId());
         if (leadRepository.findById(id).isPresent()) {
-            Lead newLead = leadRepository.findById(id).get();
-            showLead(newLead);
+            showLead(leadRepository.findById(id).get());
         } else {
             System.err.println("No lead matches '" + id + "' --> Type 'show leads' to see the list of available ids.");
         }
@@ -103,29 +82,18 @@ public class LeadService {
 
     public void showLeads() {
         List<Lead> leads = leadRepository.findAll();
-        String l1 = "%-2.2s";
-        String s1 = "%-37.37s";
-        String s2 = "%-71.71s";
-        String l2 = "%2.2s";
-        String format = l1 + " " + s1 + " " + s2 + " " + l2;
-        System.out.print(TextColor.BLUE);
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.println("| LEADS LIST                                                                                                      |");
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.format(format, "| ","ID", "NAME", " |");
-        System.out.println();
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        for(Lead lead : leads) {
-            System.out.format(format, "|", lead.getLeadId(), lead.getName(), "|");
-            System.out.println();
-        };
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
-        System.out.print(TextColor.RESET);
-
+        String title = "LEADS LIST";
+        String[] headers = {"ID                                    ", "NAME                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Lead lead : leads) {
+            String[] values = {Integer.toString(lead.getLeadId()), lead.getName()};
+            list.add(values);
+        }
+        appHelp.printTable(title, headers, list);
     }
 
-    public void convertLead() {
-        int id = Integer.parseInt(App.getCurrentId());
+    /*public void convertLead() {
+        int id = Integer.parseInt(app.getCurrentId());
         if (leadRepository.findById(id).isPresent()) {
 
             //Define all the parameters first.
@@ -135,50 +103,49 @@ public class LeadService {
             String companyName = leadRepository.findById(id).get().getCompanyName();
             Product[] productType = {Product.HYBRID, Product.FLATBED, Product.BOX};
             Industry[] industryType = {Industry.PRODUCE, Industry.ECOMMERCE, Industry.MANUFACTURING, Industry.MEDICAL, Industry.OTHER};
-            SalesRep salesRep = leadRepository.findById(id).get().getSalesRep();
+            SalesRep salesRep = leadRepository.findById(id).get().getSalesRepId();
             Account newAccount = new Account();
 
             //Create a new contact with the information of the lead.
             Contact decisionMaker = new Contact(name, phoneNumber, email);
             System.out.println("New contact created from Lead " + id);
-            showContact(decisionMaker);
+            contactService.showContact(decisionMaker);
             ;
 
             //Create a new opportunity with the information we asked the user and the new contact created.
             System.out.println("Creating a new opportunity.");
-            Product product = productType[AppHelp.selectOption("Which product the customer is interested in?", productType)];
-            int quantity = AppHelp.askForInt("How many of them does the customer want?");
+            Product product = productType[appHelp.selectOption("Which product the customer is interested in?", productType)];
+            int quantity = appHelp.askForInt("How many of them does the customer want?");
             Opportunity newOpportunity = new Opportunity(product, quantity, decisionMaker, salesRep);
             System.out.println("New opportunity created from Lead " + id);
             showOpportunity(newOpportunity);
 
             //Ask if a new Account needs to be created or not
-            int answer = AppHelp.askForAnswer("Would you like to create a new Account to associate with?");
-            if (answer == 1) {
+            String answer = appHelp.askForYesOrNo("Would you like to create a new Account to associate with?");
+            if (answer == "yes") {
                 //Create a new account with the information we asked the user and the information of the lead.
                 System.out.println("Creating a new account.");
-                Industry industry = industryType[AppHelp.selectOption("What industry is the company in?", industryType)];
-                int employeeCount = AppHelp.askForInt("How many employees are in the company?");
-                String city = AppHelp.askForString("What city is the company located in?");
-                String country = AppHelp.askForString("What country is the company from?");
-                newAccount = new Account(companyName, industry, employeeCount, city, country);
+                Industry industry = industryType[appHelp.selectOption("What industry is the company in?", industryType)];
+                int employeeCount = appHelp.askForInt("How many employees are in the company?");
+                String city = appHelp.askForString("What city is the company located in?");
+                String country = appHelp.askForString("What country is the company from?");
+                newAccount.setCompanyName(companyName);
+                newAccount.setIndustry(industry);
+                newAccount.setEmployeeCount(employeeCount);
+                newAccount.setCity(city);
+                newAccount.setCountry(country);
                 System.out.println("New account created from Lead " + id);
                 showAccount(newAccount);
             } else {
                 //Ask for existing account id.
-                int accountId = AppHelp.askForInt("Existing Account id : ");
-                if (accountRepository.findByAccountId(accountId).isPresent()) {
-                    newAccount = accountRepository.findByAccountId(accountId).get();
-                    accountRepository.deleteById(accountId);
-                } else {
-                    while (accountRepository.finById(accountId).isEmpty()) {
-                        System.err.println("No Account matches '" + accountId + "' --> Choose an Account from the following available ids list.");
-                        accountRepository.findAll();
-                        accountId = AppHelp.askForInt("Existing Account id : ");
-                    }
-                    newAccount = accountRepository.findByAccountId(accountId);
-                    accountRepository.deleteById(accountId);
+                int accountId = appHelp.askForInt("Existing Account id : ");
+                while (accountRepository.findById(accountId).isEmpty()) {
+                    System.err.println("No Account matches '" + accountId + "' --> Choose an Account from the following available ids list.");
+                    showAccounts();
+                    accountId = appHelp.askForInt("Existing Account id : ");
                 }
+                newAccount.setAccountId(accountId);
+                newAccount = accountRepository.findById(accountId).get();
             }
             //Add the newly created decision maker and opportunity to the new accounts contacts list and opportunities list.
             newAccount.addContacts(decisionMaker);
@@ -193,10 +160,21 @@ public class LeadService {
 
 
             //Remove the lead from the database once all the process is completed.
+            removeLead();
+        } else {
+            System.err.println("No lead matches '" + id + "' --> Type 'show leads' to see the list of available ids.");
+        }
+    }*/
+
+    public void removeLead() {
+        int id = Integer.parseInt(app.getCurrentId());
+        if (leadRepository.findById(id).isPresent()) {
+            System.out.println("Lead deleted");
+            showLead(leadRepository.findById(id).get());
             leadRepository.deleteById(id);
         } else {
             System.err.println("No lead matches '" + id + "' --> Type 'show leads' to see the list of available ids.");
         }
     }
 
-}*/
+}
