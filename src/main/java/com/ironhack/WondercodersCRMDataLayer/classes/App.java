@@ -39,7 +39,10 @@ public class App {
         // APP
         Command commandList = new Command("command list", "command list", "print list of application's working commands", () -> Command.printCommandsTable());
         Command exit = new Command("exit", "exit", "quit CRM application", () -> exitApp());
-        Command sayHi = new Command("say hi", "say hi", "say hi!!!!", () -> salesRepService.sayHi());
+        // SALES REP
+        Command newSalesRep = new Command("new sales rep", "new sales rep", "create new sales rep.", () -> salesRepService.addNewSalesRep());
+        Command findSalesRepById = new Command("lookup sales rep #", "lookup sales rep <IdNumber>", "print sales rep. with ID = <IdNumber>", () -> salesRepService.findSalesRepById());
+        Command showSalesReps = new Command("show sales reps", "show sales reps", "print list of all active sales rep.", () -> salesRepService.getAllSalesReps());
 
         /*
         // CONTACTS
