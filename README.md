@@ -41,6 +41,6 @@ TextColor class is a library of different colors for the log to be printed out.
 
 A project by Núria Mafé, Olatz Izagirre, Paula Kamisato and Beatriz Pérez.
 
-Link to our trello board : https://trello.com/b/7imiO5WD/homework-2-crm
+Link to our trello board : https://trello.com/b/csX2n0Ki/homework-3-wondercoders
 
 
