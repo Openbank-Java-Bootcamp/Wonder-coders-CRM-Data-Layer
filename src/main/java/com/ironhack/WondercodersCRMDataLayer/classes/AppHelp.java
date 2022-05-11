@@ -8,6 +8,11 @@ import java.util.Scanner;
 
 public class AppHelp {
 
+    public static String id ;
+
+    public static String getId() { return id; }
+    public static void setId(String id) {AppHelp.id = id;}
+
     // INPUT-VALIDATION --------------------------------------------------------------
 
     // Ask for email

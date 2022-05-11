@@ -112,7 +112,7 @@ public class App {
             commandWords[commandWords.length - 1] = "#";
         }
         currentCommand = String.join(" ", commandWords);
-
+        AppHelp.setId(currentId);
         return nextCommand;
     }
 

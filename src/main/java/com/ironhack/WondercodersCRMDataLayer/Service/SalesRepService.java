@@ -50,7 +50,7 @@ public class SalesRepService {
 
     }
     public void findSalesRepById() {
-        SalesRep rep = salesRepRepository.findBySalesRepId(Integer.parseInt(app.getCurrentId()));
+        SalesRep rep = salesRepRepository.findBySalesRepId(Integer.parseInt(AppHelp.getId()));
         // Title for commands table:
         String title = "SALES REPS LIST";
         // Headers set the size of each column:
