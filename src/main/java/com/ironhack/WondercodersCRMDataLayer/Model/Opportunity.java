@@ -30,12 +30,13 @@ public class Opportunity {
     public Opportunity() {
     }
 
-    public Opportunity(Product product, int quantity, Status status, Contact decisionMaker, Account account) {
+    public Opportunity(Product product, int quantity, Contact decisionMaker, Account account, SalesRep salesRepId) {
         this.product = product;
         this.quantity = quantity;
-        this.status = status;
+        this.status = Status.OPEN;
         this.decisionMaker = decisionMaker;
         this.account = account;
+        this.salesRepId = salesRepId;
     }
 
     public Integer getOpportunityId() {
