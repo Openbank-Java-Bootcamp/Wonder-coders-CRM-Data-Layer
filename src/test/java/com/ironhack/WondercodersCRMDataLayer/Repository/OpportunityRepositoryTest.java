@@ -18,13 +18,10 @@ class OpportunityRepositoryTest {
     private ContactRepository contactRepository;
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private SalesRepRepository salesRepRepository;
 
     private List<Opportunity> opportunities;
     private List<Contact> contacts;
     private List<Account> accounts;
-    private List<SalesRep> salesReps;
 
     @BeforeEach
     void setUp() {
@@ -40,22 +37,16 @@ class OpportunityRepositoryTest {
                 new Account("Consum", Industry.PRODUCE, 40, "Cullera", "Spain")
         ));
 
-        salesReps = salesRepRepository.saveAll(List.of(
-                new SalesRep(1,"Rep"),
-                new SalesRep(2,"Rep2")
-        ));
-
         opportunities = opportunityRepository.saveAll(List.of(
-                new Opportunity(Product.FLATBED, 40, Status.OPEN, contacts.get(0), accounts.get(0), salesReps.get(0)),
-                new Opportunity(Product.BOX, 20, Status.CLOSED_LOST, contacts.get(1), accounts.get(1), salesReps.get(1)),
-                new Opportunity(Product.HYBRID, 30, Status.CLOSED_WON, contacts.get(2), accounts.get(1), salesReps.get(0))
+                new Opportunity(Product.FLATBED, 40, Status.OPEN, contacts.get(0), accounts.get(0)),
+                new Opportunity(Product.BOX, 20, Status.CLOSED_LOST, contacts.get(1), accounts.get(1)),
+                new Opportunity(Product.HYBRID, 30, Status.CLOSED_WON, contacts.get(2), accounts.get(1))
         ));
     }
 
     @AfterEach
     void tearDown() {
         opportunityRepository.deleteAll();
-        salesRepRepository.deleteAll();
         accountRepository.deleteAll();
         contactRepository.deleteAll();
     }

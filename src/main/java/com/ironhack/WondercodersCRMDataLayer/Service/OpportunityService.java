@@ -13,13 +13,12 @@ import java.util.*;
 public class OpportunityService {
     @Autowired
     App app;
-    Opportunity opportunity;
 
     @Autowired
     OpportunityRepository opportunityRepository;
 
     // Show details of an opportunity
-    public void showOpportunity() {
+    public void showOpportunity(Opportunity opportunity) {
         // Table title
         String title = "OPPORTUNITY";
 
