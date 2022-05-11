@@ -35,20 +35,15 @@ class OpportunityRepositoryTest {
                 new Contact("Paula", "998877665", "olatz@gmail.com")
         ));
 
-        accounts = accountRepository.saveAll(List.of(
-                new Account("Mercadona", Industry.MEDICAL, 30, "Sueca", "Spain"),
-                new Account("Consum", Industry.PRODUCE, 40, "Cullera", "Spain")
-        ));
-
         salesReps = salesRepRepository.saveAll(List.of(
                 new SalesRep(1,"Rep"),
                 new SalesRep(2,"Rep2")
         ));
 
         opportunities = opportunityRepository.saveAll(List.of(
-                new Opportunity(Product.FLATBED, 40, contacts.get(0), accounts.get(0), salesReps.get(0)),
-                new Opportunity(Product.BOX, 20, contacts.get(1), accounts.get(1), salesReps.get(1)),
-                new Opportunity(Product.HYBRID, 30, contacts.get(2), accounts.get(1), salesReps.get(0))
+                new Opportunity(Product.FLATBED, 40, contacts.get(0), salesReps.get(0)),
+                new Opportunity(Product.BOX, 20, contacts.get(1), salesReps.get(1)),
+                new Opportunity(Product.HYBRID, 30, contacts.get(2), salesReps.get(0))
         ));
     }
 
