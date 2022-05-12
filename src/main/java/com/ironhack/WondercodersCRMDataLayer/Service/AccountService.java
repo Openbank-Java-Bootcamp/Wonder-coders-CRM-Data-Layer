@@ -33,10 +33,10 @@ public class AccountService {
 
     public void showAccount(Account account) {
         String title = "ACCOUNT ";
-        String[] headers = {"ACCOUNT-ID      ", "COMPANY NAME    ", "INDUSTRY        ", "EMPLOYEES NUMBER", "CITY            ", "COUNTRY         ", "CONTACTS                      ", "OPPORTUNITIES                 "};
+        String[] headers = {"COMPANY NAME    ", "INDUSTRY        ", "EMPLOYEES NUMBER", "CITY            ", "COUNTRY         ", "CONTACTS                      ", "OPPORTUNITIES                 "};
 
         List<String[]> list = new ArrayList<>();
-        String[] array = {account.getAccountId().toString(), account.getCompanyName(), account.getIndustry().toString(), String.valueOf(account.getEmployeeCount()), account.getCity(), account.getCountry(), account.getContactList().toString(), account.getOpportunityList().toString()};
+        String[] array = {account.getCompanyName(), account.getIndustry().toString(), String.valueOf(account.getEmployeeCount()), account.getCity(), account.getCountry(), account.getContactList().toString(), account.getOpportunityList().toString()};
         list.add(array);
 
         AppHelp.printTable(title, headers, list);
