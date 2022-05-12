@@ -31,10 +31,10 @@ public class Account {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Contact> contactList;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.REFRESH)
     private List<Opportunity> opportunityList;
 
     public Account() {

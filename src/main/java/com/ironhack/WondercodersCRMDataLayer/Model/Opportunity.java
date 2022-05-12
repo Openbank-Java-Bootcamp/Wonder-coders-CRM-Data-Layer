@@ -17,10 +17,10 @@ public class Opportunity {
     private int quantity;
     @Enumerated(EnumType.STRING)
     private Status status;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "decision_maker")
     private Contact decisionMaker;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account")
     private Account account;
     @ManyToOne

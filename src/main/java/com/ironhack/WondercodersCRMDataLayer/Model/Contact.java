@@ -19,10 +19,10 @@ public class Contact {
 
     private String email;
 
-    @OneToOne(mappedBy = "decisionMaker")
+    @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.ALL)
     private Opportunity opportunity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn (name = "account_id")
     private Account account;
 
