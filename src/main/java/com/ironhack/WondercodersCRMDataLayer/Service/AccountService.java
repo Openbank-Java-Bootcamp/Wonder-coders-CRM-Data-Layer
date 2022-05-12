@@ -43,7 +43,7 @@ public class AccountService {
 
     }
 
-    public void lookUpOpportunity() {
+    public void lookUpAccount() {
         int id = Integer.parseInt(AppHelp.getId());
         Optional<Account> accountFromDB = accountRepository.findById(id);
         if (accountFromDB.isPresent()) {
