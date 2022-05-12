@@ -11,11 +11,14 @@ import java.util.*;
 
 @Service
 public class OpportunityService {
+<<<<<<< HEAD
+=======
     /*@Autowired
     App app;*/
 
     App app = new App();
 
+>>>>>>> 789df79349876f74364bc8759546530108c8e3b2
     @Autowired
     OpportunityRepository opportunityRepository;
 
@@ -37,7 +40,7 @@ public class OpportunityService {
 
     // Show opportunity with id
     public void lookUpOpportunity() {
-        int id = Integer.parseInt(app.getCurrentId());
+        int id = Integer.parseInt(AppHelp.getId());
         // Get the opportunity from the database
         Optional<Opportunity> opportunityFromDB = opportunityRepository.findById(id);
 
@@ -85,7 +88,7 @@ public class OpportunityService {
 
     // Change status to CLOSE_WON
     public void closeWon() {
-        int id = Integer.parseInt(app.getCurrentId());
+        int id = Integer.parseInt(AppHelp.getId());
         // Get the opportunity from the database
         Optional<Opportunity> opportunityFromDB = opportunityRepository.findById(id);
 
@@ -98,7 +101,7 @@ public class OpportunityService {
 
     // Change status to CLOSE_LOSE
     public void closeLost() {
-        int id = Integer.parseInt(app.getCurrentId());
+        int id = Integer.parseInt(AppHelp.getId());
         // Get the opportunity from the database
         Optional<Opportunity> opportunityFromDB = opportunityRepository.findById(id);
 
