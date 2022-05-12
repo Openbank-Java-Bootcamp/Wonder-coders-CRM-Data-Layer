@@ -64,6 +64,7 @@ public class App {
         Command findOpportunity = new Command("lookup opportunity #", "lookup opportunity <IdNumber>", "print opportunity with ID = <IdNumber>", () -> Opportunity.lookUpOpportunity());
         Command showOpportunities = new Command("show opportunities", "show opportunities", "print list of all active opportunities", () -> Opportunity.showOpportunities());
         // LEADS*/
+<<<<<<< HEAD
         Command removeLead = new Command("remove lead #", "remove lead <IdNumber>", "remove lead with ID = <IdNumber>", () -> leadService.removeLead(), false);
         //Command convertLead = new Command("convert #", "convert <IdNumber>", "convert lead with ID = <IdNumber> to new opportunity", () -> leadService.convertLead());
         Command findLead = new Command("lookup lead #", "lookup lead <IdNumber>", "print lead with ID = <IdNumber>", () -> leadService.lookUpLead(), false);
@@ -72,6 +73,14 @@ public class App {
 
         // REPORTS
         Command reportLeadBySalesRep = new Command("report lead by sales rep", "report lead by sales rep", "print list of all sales rep with their lead count", () -> leadService.reportLeadBySalesRep(), true);
+=======
+        Command removeLead = new Command("remove #", "remove <IdNumber>", "remove lead with ID = <IdNumber>", () -> leadService.removeLead());
+        Command convertLead = new Command("convert #", "convert <IdNumber>", "convert lead with ID = <IdNumber> to new opportunity", () -> leadService.convertLead());
+        Command findLead = new Command("lookup lead #", "lookup lead <IdNumber>", "print lead with ID = <IdNumber>", () -> leadService.lookUpLead());
+        Command showLeads = new Command("show leads", "show leads", "print list of all active leads", () -> leadService.showLeads());
+        Command newLead = new Command("new lead", "new lead", "create new lead", () -> leadService.newLead());
+        Command reportLeadBySalesRep = new Command("report lead by sales rep", "report lead by sales rep", "print list of all sales rep with their lead count", () -> leadService.reportLeadBySalesRep());
+>>>>>>> 2f9cc8024380e465a9cad06da88203661f0b5e82
 
     }
 

@@ -17,9 +17,6 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-    @Autowired
-    App app;
-
 
     public void showAccounts() {
         List<Account> accountList = accountRepository.findAll();
@@ -47,7 +44,7 @@ public class AccountService {
     }
 
     public void lookUpOpportunity() {
-        int id = Integer.parseInt(app.getCurrentId());
+        int id = Integer.parseInt(AppHelp.getId());
         Optional<Account> accountFromDB = accountRepository.findById(id);
         if (accountFromDB.isPresent()) {
             String title = "THIS IS THE ACCOUNT WITH ID " + id;
