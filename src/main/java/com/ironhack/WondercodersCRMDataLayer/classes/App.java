@@ -45,17 +45,16 @@ public class App {
     public void setAppCommands() {
         // COMMANDS:
         // APP
-        Command commandList = new Command("command list", "command list", "print list of application's working commands", () -> Command.printCommandsTable());
-        Command exit = new Command("exit", "exit", "quit CRM application", () -> exitApp());
+        Command commandList = new Command("command list", "command list", "print list of application's working commands", () -> Command.printCommandsTable(), false);
+        Command reportList = new Command("report list", "report list", "print list of available reports", () -> Command.printReportsTable(), false);
+        Command exit = new Command("exit", "exit", "quit CRM application", () -> exitApp(), false);
         // SALES REP
-        Command newSalesRep = new Command("new sales rep", "new sales rep", "create new sales rep.", () -> salesRepService.addNewSalesRep());
-        Command findSalesRepById = new Command("lookup sales rep #", "lookup sales rep <IdNumber>", "print sales rep. with ID = <IdNumber>", () -> salesRepService.findSalesRepById());
-        Command showSalesReps = new Command("show sales reps", "show sales reps", "print list of all active sales rep.", () -> salesRepService.getAllSalesReps());
-
-
+        Command newSalesRep = new Command("new sales rep", "new sales rep", "create new sales rep.", () -> salesRepService.addNewSalesRep(), false);
+        Command findSalesRepById = new Command("lookup sales rep #", "lookup sales rep <IdNumber>", "print sales rep. with ID = <IdNumber>", () -> salesRepService.findSalesRepById(), false);
+        Command showSalesReps = new Command("show sales reps", "show sales reps", "print list of all active sales rep.", () -> salesRepService.getAllSalesReps(), false);
         // CONTACTS
-        Command findContact = new Command("lookup contact #", "lookup contact <IdNumber>", "print contact with ID = <IdNumber>", () -> contactService.lookUpContact());
-        Command showContacts = new Command("show contacts", "show contacts", "print list of all active contacts", () -> contactService.showContacts());/*
+        Command findContact = new Command("lookup contact #", "lookup contact <IdNumber>", "print contact with ID = <IdNumber>", () -> contactService.lookUpContact(), false);
+        Command showContacts = new Command("show contacts", "show contacts", "print list of all active contacts", () -> contactService.showContacts(), false);/*
         // ACCOUNTS
         Command findAccount = new Command("lookup account #", "lookup account <IdNumber>", "print account with ID = <IdNumber>", () -> Account.lookUpAccounts());
         Command showAccounts = new Command("show accounts", "show accounts", "print list of all active accounts", () -> Account.showAccounts());
@@ -65,12 +64,15 @@ public class App {
         Command findOpportunity = new Command("lookup opportunity #", "lookup opportunity <IdNumber>", "print opportunity with ID = <IdNumber>", () -> Opportunity.lookUpOpportunity());
         Command showOpportunities = new Command("show opportunities", "show opportunities", "print list of all active opportunities", () -> Opportunity.showOpportunities());
         // LEADS*/
-        Command removeLead = new Command("remove #", "remove <IdNumber>", "remove lead with ID = <IdNumber>", () -> leadService.removeLead());
-        Command convertLead = new Command("convert #", "convert <IdNumber>", "convert lead with ID = <IdNumber> to new opportunity", () -> leadService.convertLead());
-        Command findLead = new Command("lookup lead #", "lookup lead <IdNumber>", "print lead with ID = <IdNumber>", () -> leadService.lookUpLead());
-        Command showLeads = new Command("show leads", "show leads", "print list of all active leads", () -> leadService.showLeads());
-        Command newLead = new Command("new lead", "new lead", "create new lead", () -> leadService.newLead());
-        Command reportLeadBySalesRep = new Command("report lead by sales rep", "report lead by sales rep", "print list of all sales rep with their lead count", () -> leadService.reportLeadBySalesRep());
+
+        Command removeLead = new Command("remove lead #", "remove lead <IdNumber>", "remove lead with ID = <IdNumber>", () -> leadService.removeLead(), false);
+        //Command convertLead = new Command("convert #", "convert <IdNumber>", "convert lead with ID = <IdNumber> to new opportunity", () -> leadService.convertLead());
+        Command findLead = new Command("lookup lead #", "lookup lead <IdNumber>", "print lead with ID = <IdNumber>", () -> leadService.lookUpLead(), false);
+        Command showLeads = new Command("show leads", "show leads", "print list of all active leads", () -> leadService.showLeads(), false);
+        Command newLead = new Command("new lead", "new lead", "create new lead", () -> leadService.newLead(), false);
+
+        // REPORTS
+        Command reportLeadBySalesRep = new Command("report lead by sales rep", "report lead by sales rep", "print list of all sales rep with their lead count", () -> leadService.reportLeadBySalesRep(), true);
 
     }
 
