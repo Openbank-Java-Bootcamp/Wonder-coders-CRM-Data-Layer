@@ -1,7 +1,6 @@
 package com.ironhack.WondercodersCRMDataLayer.Model;
 
 import com.ironhack.WondercodersCRMDataLayer.Enums.Industry;
-import com.ironhack.WondercodersCRMDataLayer.Repository.AccountRepository;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ public class Account {
     private String companyName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "industry_name")
     private Industry industry;
 
     @Column(name = "employee_count")
@@ -54,6 +52,10 @@ public class Account {
 
     public Integer getAccountId() {
         return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 
     public String getCompanyName() {
