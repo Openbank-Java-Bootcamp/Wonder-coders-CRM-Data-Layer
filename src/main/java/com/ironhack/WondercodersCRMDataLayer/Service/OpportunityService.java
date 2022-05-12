@@ -20,7 +20,7 @@ public class OpportunityService {
         String title = "OPPORTUNITY";
 
         // Table headers
-        String[] headers = {"PRODUCT         ", "QUANTITY    ", "DECISION MAKER                 ", "STATUS            "};
+        String[] headers = {"PRODUCT         ", "QUANTITY    ", "DECISION MAKER                                       ", "STATUS            "};
 
         // List with the data to show
         List<String[]> list = new ArrayList<>();
@@ -41,7 +41,7 @@ public class OpportunityService {
             String title = "THIS IS THE OPPORTUNITY WITH ID " + id;
 
             // Table headers
-            String[] headers = {"ID                ", "PRODUCT         ", "QUANTITY    ", "DECISION MAKER                 ", "STATUS            "};
+            String[] headers = {"ID                ", "PRODUCT         ", "QUANTITY    ", "DECISION MAKER                                       ", "STATUS            "};
 
             // List with the data to show
             List<String[]> list = new ArrayList<>();
@@ -66,7 +66,7 @@ public class OpportunityService {
         String title = "OPPORTUNITY LIST";
 
         // Table headers
-        String[] headers = {"ID                ", "PRODUCT         ", "QUANTITY    ", "DECISION MAKER                 ", "STATUS            "};
+        String[] headers = {"ID                ", "PRODUCT         ", "QUANTITY    ", "DECISION MAKER                                       ", "STATUS            "};
 
         // List with the data to show
         List<String[]> list = new ArrayList<>();
