@@ -16,9 +16,7 @@ public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
-    App app = new App();
 
-    AppHelp appHelp = new AppHelp();
 
     public void showContacts() {
         List<Contact> contacts = contactRepository.findAll();
@@ -29,7 +27,7 @@ public class ContactService {
             String[] values = {Integer.toString(contact.getContactId()), contact.getName(), contact.getPhoneNumber(), contact.getEmail()};
             list.add(values);
         }
-        appHelp.printTable(title, headers, list);
+        AppHelp.printTable(title, headers, list);
     }
 
     public void showContact(Contact newContact) {
@@ -38,11 +36,11 @@ public class ContactService {
         List<String[]> list = new ArrayList<>();
         String[] values = {Integer.toString(newContact.getContactId()), newContact.getName(), newContact.getPhoneNumber(), newContact.getEmail()};
         list.add(values);
-        appHelp.printTable(title, headers, list);
+        AppHelp.printTable(title, headers, list);
     }
 
     public void lookUpContact() {
-        int id = Integer.parseInt(app.getCurrentId());
+        int id = Integer.parseInt(AppHelp.getId());
         if (contactRepository.findById(id).isPresent()) {
             showContact(contactRepository.findById(id).get());
         } else {
