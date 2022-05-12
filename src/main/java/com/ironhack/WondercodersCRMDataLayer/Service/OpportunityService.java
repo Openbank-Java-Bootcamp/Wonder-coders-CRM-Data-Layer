@@ -105,142 +105,142 @@ public class OpportunityService {
     }
 
     // Count of all Opportunities by SalesRep
-    public List<Object[]> getOpportunitiesBySalesRep() {
+    public List<Object[]> reportOpportunitiesBySalesRep() {
         return opportunityRepository.findAllBySalesRepId();
     }
 
     // Count of all CLOSE_WON status Opportunities by SalesRep
-    public List<Object[]> getOpportunitiesByStatusWonAndSalesRep() {
+    public List<Object[]> reportOpportunitiesByStatusWonAndSalesRep() {
         return opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_WON);
     }
 
     // Count of all CLOSE_LOST status Opportunities by SalesRep
-    public List<Object[]> getOpportunitiesByStatusLostAndSalesRep() {
+    public List<Object[]> reportOpportunitiesByStatusLostAndSalesRep() {
         return opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_LOST);
     }
 
     // Count of all OPEN status Opportunities by SalesRep
-    public List<Object[]> getOpportunitiesByStatusOpenAndSalesRep() {
+    public List<Object[]> reportOpportunitiesByStatusOpenAndSalesRep() {
         return opportunityRepository.findAllByStatusAndSalesRepId(Status.OPEN);
     }
 
     // Count of all Opportunities by the Product
-    public List<Object[]> getOpportunitiesByProduct() {
+    public List<Object[]> reportOpportunitiesByProduct() {
         return opportunityRepository.findAllByProduct();
     }
 
     // Count of all CLOSE_WON status Opportunities by Product
-    public List<Object[]> getOpportunitiesByStatusWonAndProduct() {
+    public List<Object[]> reportOpportunitiesByStatusWonAndProduct() {
         return opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_WON);
     }
 
     // Count of all CLOSE_LOST status Opportunities by Product
-    public List<Object[]> getOpportunitiesByStatusLostAndProduct() {
+    public List<Object[]> reportOpportunitiesByStatusLostAndProduct() {
         return opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_LOST);
     }
 
     // Count of all OPEN status Opportunities by Product
-    public List<Object[]> getOpportunitiesByStatusOpenAndProduct() {
+    public List<Object[]> reportOpportunitiesByStatusOpenAndProduct() {
         return opportunityRepository.findAllByStatusAndProduct(Status.OPEN);
     }
 
     // Count of all Opportunities by the Country
-    public List<Object[]> getOpportunitiesByCountry() {
+    public List<Object[]> reportOpportunitiesByCountry() {
         return opportunityRepository.findAllByCountry();
     }
 
     // Count of all CLOSE_WON status Opportunities by Country
-    public List<Object[]> getOpportunitiesByStatusWonAndCountry() {
+    public List<Object[]> reportOpportunitiesByStatusWonAndCountry() {
         return opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_WON);
     }
 
     // Count of all CLOSE_LOST status Opportunities by Country
-    public List<Object[]> getOpportunitiesByStatusLostAndCountry() {
+    public List<Object[]> reportOpportunitiesByStatusLostAndCountry() {
         return opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_LOST);
     }
 
     // Count of all OPEN status Opportunities by Country
-    public List<Object[]> getOpportunitiesByStatusOpenAndCountry() {
+    public List<Object[]> reportOpportunitiesByStatusOpenAndCountry() {
         return opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
     }
 
     // Count of all Opportunities by the City
-    public List<Object[]> getOpportunitiesByCity() {
+    public List<Object[]> reportOpportunitiesByCity() {
         return opportunityRepository.findAllByCity();
     }
 
     // Count of all CLOSE_WON status Opportunities by City
-    public List<Object[]> getOpportunitiesByStatusWonAndCity() {
+    public List<Object[]> reportOpportunitiesByStatusWonAndCity() {
         return opportunityRepository.findAllByStatusAndCity(Status.CLOSED_WON);
     }
 
     // Count of all CLOSE_LOST status Opportunities by City
-    public List<Object[]> getOpportunitiesByStatusLostAndCity() {
+    public List<Object[]> reportOpportunitiesByStatusLostAndCity() {
         return opportunityRepository.findAllByStatusAndCity(Status.CLOSED_LOST);
     }
 
     // Count of all OPEN status Opportunities by City
-    public List<Object[]> getOpportunitiesByStatusOpenAndCity() {
+    public List<Object[]> reportOpportunitiesByStatusOpenAndCity() {
         return opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
     }
 
     // Count of all Opportunities by the Industry
-    public List<Object[]> getOpportunitiesByIndustry() {
+    public List<Object[]> reportOpportunitiesByIndustry() {
         return opportunityRepository.findAllByIndustry();
     }
 
     // Count of all CLOSE_WON status Opportunities by Industry
-    public List<Object[]> getOpportunitiesByStatusWonAndIndustry() {
+    public List<Object[]> reportOpportunitiesByStatusWonAndIndustry() {
         return opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_WON);
     }
 
     // Count of all CLOSE_LOST status Opportunities by Industry
-    public List<Object[]> getOpportunitiesByStatusLostAndIndustry() {
+    public List<Object[]> reportOpportunitiesByStatusLostAndIndustry() {
         return opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_LOST);
     }
 
     // Count of all OPEN status Opportunities by Industry
-    public List<Object[]> getOpportunitiesByStatusOpenAndIndustry() {
+    public List<Object[]> reportOpportunitiesByStatusOpenAndIndustry() {
         return opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
     }
 
     // Mean quantity of products order
-    public List<Object[]> getMeanQuantity() {
+    public List<Object[]> reportMeanQuantity() {
         return opportunityRepository.meanQuantity();
     }
 
     // Median quantity of products order
-    public List<Object[]> getMedianQuantity() {
+    public List<Object[]> reportMedianQuantity() {
         return opportunityRepository.medianQuantity();
     }
 
     // Maximum quantity of products order
-    public List<Object[]> getMaxQuantity() {
+    public List<Object[]> reportMaxQuantity() {
         return opportunityRepository.maxQuantity();
     }
 
     // Minimum quantity of products order
-    public List<Object[]> getMinQuantity() {
+    public List<Object[]> reportMinQuantity() {
         return opportunityRepository.minQuantity();
     }
 
     // Mean quantity of products order
-    public List<Object[]> getMeanOpportunities() {
+    public List<Object[]> reportMeanOpportunities() {
         return opportunityRepository.meanOpportunities();
     }
 
     // Median quantity of products order
-    public List<Object[]> getMedianOpportunities() {
+    public List<Object[]> reportMedianOpportunities() {
         return opportunityRepository.medianOpportunities();
     }
 
     // Maximum quantity of products order
-    public List<Object[]> getMaxOpportunities() {
+    public List<Object[]> reportMaxOpportunities() {
         return opportunityRepository.maxOpportunities();
     }
 
     // Minimum quantity of products order
-    public List<Object[]> getMinOpportunities() {
+    public List<Object[]> reportMinOpportunities() {
         return opportunityRepository.minOpportunities();
     }
 }
