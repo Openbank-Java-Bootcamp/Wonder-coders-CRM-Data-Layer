@@ -11,14 +11,6 @@ import java.util.*;
 
 @Service
 public class OpportunityService {
-<<<<<<< HEAD
-=======
-    /*@Autowired
-    App app;*/
-
-    App app = new App();
-
->>>>>>> 789df79349876f74364bc8759546530108c8e3b2
     @Autowired
     OpportunityRepository opportunityRepository;
 
