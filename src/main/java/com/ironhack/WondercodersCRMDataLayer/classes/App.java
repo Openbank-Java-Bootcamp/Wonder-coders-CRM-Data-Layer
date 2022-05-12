@@ -2,9 +2,7 @@ package com.ironhack.WondercodersCRMDataLayer.classes;
 
 import com.ironhack.WondercodersCRMDataLayer.Enums.Color;
 import com.ironhack.WondercodersCRMDataLayer.Repository.SalesRepRepository;
-import com.ironhack.WondercodersCRMDataLayer.Service.ContactService;
-import com.ironhack.WondercodersCRMDataLayer.Service.LeadService;
-import com.ironhack.WondercodersCRMDataLayer.Service.SalesRepService;
+import com.ironhack.WondercodersCRMDataLayer.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +21,12 @@ public class App {
     public ContactService contactService;
     @Autowired
     public LeadService leadService;
+
+    @Autowired
+    public AccountService accountService;
+
+    @Autowired
+    public OpportunityService opportunityService;
 
 
 
@@ -54,19 +58,19 @@ public class App {
         Command showSalesReps = new Command("show sales reps", "show sales reps", "print list of all active sales rep.", () -> salesRepService.getAllSalesReps(), false);
         // CONTACTS
         Command findContact = new Command("lookup contact #", "lookup contact <IdNumber>", "print contact with ID = <IdNumber>", () -> contactService.lookUpContact(), false);
-        Command showContacts = new Command("show contacts", "show contacts", "print list of all active contacts", () -> contactService.showContacts(), false);/*
+        Command showContacts = new Command("show contacts", "show contacts", "print list of all active contacts", () -> contactService.showContacts(), false);
         // ACCOUNTS
-        Command findAccount = new Command("lookup account #", "lookup account <IdNumber>", "print account with ID = <IdNumber>", () -> Account.lookUpAccounts());
-        Command showAccounts = new Command("show accounts", "show accounts", "print list of all active accounts", () -> Account.showAccounts());
+        Command findAccount = new Command("lookup account #", "lookup account <IdNumber>", "print account with ID = <IdNumber>", () -> accountService.lookUpAccount(),false);
+        Command showAccounts = new Command("show accounts", "show accounts", "print list of all active accounts", () -> accountService.showAccounts(),false);
         // OPPORTUNITIES
-        Command closeWon = new Command("close-won #", "close-won <IdNumber>", "Closing opportunity with ID = <IdNumber> with status = WON", () -> Opportunity.closeWon());
-        Command closeLost = new Command("close-lost #", "close-lost <IdNumber>", "Closing opportunity with ID = <IdNumber> with status = LOST", () -> Opportunity.closeLost());
-        Command findOpportunity = new Command("lookup opportunity #", "lookup opportunity <IdNumber>", "print opportunity with ID = <IdNumber>", () -> Opportunity.lookUpOpportunity());
-        Command showOpportunities = new Command("show opportunities", "show opportunities", "print list of all active opportunities", () -> Opportunity.showOpportunities());
-        // LEADS*/
+        Command closeWon = new Command("close-won #", "close-won <IdNumber>", "Closing opportunity with ID = <IdNumber> with status = WON", () -> opportunityService.closeWon(),false);
+        Command closeLost = new Command("close-lost #", "close-lost <IdNumber>", "Closing opportunity with ID = <IdNumber> with status = LOST", () -> opportunityService.closeLost(),false);
+        Command findOpportunity = new Command("lookup opportunity #", "lookup opportunity <IdNumber>", "print opportunity with ID = <IdNumber>", () -> opportunityService.lookUpOpportunity(),false);
+        Command showOpportunities = new Command("show opportunities", "show opportunities", "print list of all active opportunities", () -> opportunityService.showOpportunities(),false);
+        // LEADS
 
         Command removeLead = new Command("remove lead #", "remove lead <IdNumber>", "remove lead with ID = <IdNumber>", () -> leadService.removeLead(), false);
-        //Command convertLead = new Command("convert #", "convert <IdNumber>", "convert lead with ID = <IdNumber> to new opportunity", () -> leadService.convertLead());
+        Command convertLead = new Command("convert #", "convert <IdNumber>", "convert lead with ID = <IdNumber> to new opportunity", () -> leadService.convertLead(),false);
         Command findLead = new Command("lookup lead #", "lookup lead <IdNumber>", "print lead with ID = <IdNumber>", () -> leadService.lookUpLead(), false);
         Command showLeads = new Command("show leads", "show leads", "print list of all active leads", () -> leadService.showLeads(), false);
         Command newLead = new Command("new lead", "new lead", "create new lead", () -> leadService.newLead(), false);
