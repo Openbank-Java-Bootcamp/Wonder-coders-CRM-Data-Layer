@@ -32,9 +32,9 @@ public class ContactService {
 
     public void showContact(Contact newContact) {
         String title = "CONTACT";
-        String[] headers = {"ID      ", "NAME                              ", "PHONE NUMBER                      ", "EMAIL                              "};
+        String[] headers = {"NAME                              ", "PHONE NUMBER                      ", "EMAIL                              "};
         List<String[]> list = new ArrayList<>();
-        String[] values = {Integer.toString(newContact.getContactId()), newContact.getName(), newContact.getPhoneNumber(), newContact.getEmail()};
+        String[] values = {newContact.getName(), newContact.getPhoneNumber(), newContact.getEmail()};
         list.add(values);
         AppHelp.printTable(title, headers, list);
     }
