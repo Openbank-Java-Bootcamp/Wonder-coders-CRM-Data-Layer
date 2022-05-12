@@ -87,6 +87,14 @@ public class Contact {
         this.account = account;
     }
 
+    public SalesRep getSalesRepId() {
+        return salesRepId;
+    }
+
+    public void setSalesRepId(SalesRep salesRepId) {
+        this.salesRepId = salesRepId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

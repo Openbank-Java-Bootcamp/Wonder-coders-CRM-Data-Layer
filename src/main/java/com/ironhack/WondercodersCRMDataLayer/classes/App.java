@@ -69,7 +69,7 @@ public class App {
         //Command convertLead = new Command("convert #", "convert <IdNumber>", "convert lead with ID = <IdNumber> to new opportunity", () -> leadService.convertLead());
         Command findLead = new Command("lookup lead #", "lookup lead <IdNumber>", "print lead with ID = <IdNumber>", () -> leadService.lookUpLead());
         Command showLeads = new Command("show leads", "show leads", "print list of all active leads", () -> leadService.showLeads());
-        //Command newLead = new Command("new lead", "new lead", "create new lead", () -> leadService.newLead());
+        Command newLead = new Command("new lead", "new lead", "create new lead", () -> leadService.newLead());
         Command reportLeadBySalesRep = new Command("report lead by sales rep", "report lead by sales rep", "print list of all sales rep with their lead count", () -> leadService.reportLeadBySalesRep());
 
     }

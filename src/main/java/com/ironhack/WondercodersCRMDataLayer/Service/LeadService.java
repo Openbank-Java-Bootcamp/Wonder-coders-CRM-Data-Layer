@@ -1,5 +1,6 @@
 package com.ironhack.WondercodersCRMDataLayer.Service;
 
+
 import com.ironhack.WondercodersCRMDataLayer.Enums.Industry;
 import com.ironhack.WondercodersCRMDataLayer.Enums.Product;
 import com.ironhack.WondercodersCRMDataLayer.Model.*;
@@ -26,8 +27,19 @@ public class LeadService {
     private AccountRepository accountRepository;
     @Autowired
     private ContactService contactService;
-    App app = new App();
-    AppHelp appHelp = new AppHelp();
+
+    @Autowired
+    private OpportunityService opportunityService;
+
+    @Autowired
+    private SalesRepService salesRepService;
+
+    @Autowired
+    //private AccountService accountService;
+
+
+
+
 
 
     public void reportLeadBySalesRep() {
@@ -39,7 +51,7 @@ public class LeadService {
             String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
             list.add(values);
         }
-        appHelp.printTable(title, headers, list);
+        AppHelp.printTable(title, headers, list);
     }
 
     public void showLead(Lead newLead) {
@@ -48,19 +60,29 @@ public class LeadService {
         List<String[]> list = new ArrayList<>();
         String[] values = {Integer.toString(newLead.getLeadId()), newLead.getName(), newLead.getPhoneNumber(), newLead.getEmail(), newLead.getCompanyName()};
         list.add(values);
-        appHelp.printTable(title, headers, list);
+        AppHelp.printTable(title, headers, list);
     }
 
-    /*public void newLead() {
-        String name = appHelp.askForString("Name :");
-        String phoneNumber = appHelp.askForString("Phone number: ");
-        String email = appHelp.askForString("Email :");
-        String companyName = appHelp.askForString("Company name :");
-        int salesRepId = appHelp.askForInt("Sales Rep id :");
+    public void newLead() {
+        String name = AppHelp.askForString("Name :");
+        String phoneNumber = AppHelp.askForPhoneNumber("Phone number: ");
+        String email = AppHelp.askForEmail("Email :");
+        String companyName = AppHelp.askForString("Company name :");
+        if (salesRepRepository.findAll().size()==0){
+            salesRepService.addNewSalesRep();
+            int salesRepId = salesRepRepository.findAll().get(0).getSalesRepId();
+            SalesRep salesRep = salesRepRepository.findById(salesRepId).get();
+            Lead newLead = new Lead(name, phoneNumber, email, companyName, salesRep);
+            leadRepository.save(newLead);
+            System.out.println("New Lead created");
+            showLead(newLead);
+        }
+        else{
+        int salesRepId = AppHelp.askForInt("Sales Rep id :");
         SalesRep salesRep = new SalesRep();
         while (salesRepRepository.findById(salesRepId).isEmpty()) {
             System.err.println("No Sales Rep matches '" + salesRepId + "' --> Choose a Sales Rep from the following available ids list.");
-            showSalesReps();
+            salesRepService.getAllSalesReps();
             salesRepId = AppHelp.askForInt("Sales Rep id :");
         }
         salesRep.setSalesRepId(salesRepId);
@@ -69,10 +91,10 @@ public class LeadService {
         leadRepository.save(newLead);
         System.out.println("New Lead created");
         showLead(newLead);
-    }*/
+    }}
 
     public void lookUpLead() {
-        int id = Integer.parseInt(app.getCurrentId());
+        int id = Integer.parseInt( AppHelp.getId());
         if (leadRepository.findById(id).isPresent()) {
             showLead(leadRepository.findById(id).get());
         } else {
@@ -89,11 +111,11 @@ public class LeadService {
             String[] values = {Integer.toString(lead.getLeadId()), lead.getName()};
             list.add(values);
         }
-        appHelp.printTable(title, headers, list);
+        AppHelp.printTable(title, headers, list);
     }
 
     /*public void convertLead() {
-        int id = Integer.parseInt(app.getCurrentId());
+        int id = Integer.parseInt(AppHelp.getId());
         if (leadRepository.findById(id).isPresent()) {
 
             //Define all the parameters first.
@@ -108,41 +130,42 @@ public class LeadService {
 
             //Create a new contact with the information of the lead.
             Contact decisionMaker = new Contact(name, phoneNumber, email);
+            decisionMaker.setSalesRepId(salesRep);
             System.out.println("New contact created from Lead " + id);
             contactService.showContact(decisionMaker);
             ;
 
             //Create a new opportunity with the information we asked the user and the new contact created.
             System.out.println("Creating a new opportunity.");
-            Product product = productType[appHelp.selectOption("Which product the customer is interested in?", productType)];
-            int quantity = appHelp.askForInt("How many of them does the customer want?");
+            Product product = productType[AppHelp.selectOption("Which product the customer is interested in?", productType)];
+            int quantity = AppHelp.askForInt("How many of them does the customer want?");
             Opportunity newOpportunity = new Opportunity(product, quantity, decisionMaker, salesRep);
             System.out.println("New opportunity created from Lead " + id);
-            showOpportunity(newOpportunity);
+            opportunityService.showOpportunity(newOpportunity);
 
             //Ask if a new Account needs to be created or not
-            String answer = appHelp.askForYesOrNo("Would you like to create a new Account to associate with?");
-            if (answer == "yes") {
+            String answer = AppHelp.askForYesOrNo("Would you like to create a new Account to associate with?");
+            if (answer.equals("yes")) {
                 //Create a new account with the information we asked the user and the information of the lead.
                 System.out.println("Creating a new account.");
-                Industry industry = industryType[appHelp.selectOption("What industry is the company in?", industryType)];
-                int employeeCount = appHelp.askForInt("How many employees are in the company?");
-                String city = appHelp.askForString("What city is the company located in?");
-                String country = appHelp.askForString("What country is the company from?");
+                Industry industry = industryType[AppHelp.selectOption("What industry is the company in?", industryType)];
+                int employeeCount = AppHelp.askForInt("How many employees are in the company?");
+                String city = AppHelp.askForString("What city is the company located in?");
+                String country = AppHelp.askForString("What country is the company from?");
                 newAccount.setCompanyName(companyName);
                 newAccount.setIndustry(industry);
                 newAccount.setEmployeeCount(employeeCount);
                 newAccount.setCity(city);
                 newAccount.setCountry(country);
                 System.out.println("New account created from Lead " + id);
-                showAccount(newAccount);
+                accountService.showAccount(newAccount);
             } else {
                 //Ask for existing account id.
-                int accountId = appHelp.askForInt("Existing Account id : ");
+                int accountId = AppHelp.askForInt("Existing Account id : ");
                 while (accountRepository.findById(accountId).isEmpty()) {
                     System.err.println("No Account matches '" + accountId + "' --> Choose an Account from the following available ids list.");
-                    showAccounts();
-                    accountId = appHelp.askForInt("Existing Account id : ");
+                    accountService.showAccounts();
+                    accountId = AppHelp.askForInt("Existing Account id : ");
                 }
                 newAccount.setAccountId(accountId);
                 newAccount = accountRepository.findById(accountId).get();
@@ -150,6 +173,7 @@ public class LeadService {
             //Add the newly created decision maker and opportunity to the new accounts contacts list and opportunities list.
             newAccount.addContacts(decisionMaker);
             decisionMaker.setAccount(newAccount);
+            decisionMaker.setOpportunity(newOpportunity);
             newAccount.addOpportunities(newOpportunity);
             newOpportunity.setAccount(newAccount);
 
@@ -167,7 +191,7 @@ public class LeadService {
     }*/
 
     public void removeLead() {
-        int id = Integer.parseInt(app.getCurrentId());
+        int id = Integer.parseInt(AppHelp.getId());
         if (leadRepository.findById(id).isPresent()) {
             System.out.println("Lead deleted");
             showLead(leadRepository.findById(id).get());
