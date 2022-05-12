@@ -5,7 +5,6 @@ import com.ironhack.WondercodersCRMDataLayer.Enums.Industry;
 import com.ironhack.WondercodersCRMDataLayer.Enums.Product;
 import com.ironhack.WondercodersCRMDataLayer.Model.*;
 import com.ironhack.WondercodersCRMDataLayer.Repository.*;
-import com.ironhack.WondercodersCRMDataLayer.classes.App;
 import com.ironhack.WondercodersCRMDataLayer.classes.AppHelp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,7 @@ public class LeadService {
     private SalesRepService salesRepService;
 
     @Autowired
-    //private AccountService accountService;
+    private AccountService accountService;
 
 
 
@@ -114,7 +113,7 @@ public class LeadService {
         AppHelp.printTable(title, headers, list);
     }
 
-    /*public void convertLead() {
+    public void convertLead() {
         int id = Integer.parseInt(AppHelp.getId());
         if (leadRepository.findById(id).isPresent()) {
 
@@ -133,7 +132,7 @@ public class LeadService {
             decisionMaker.setSalesRepId(salesRep);
             System.out.println("New contact created from Lead " + id);
             contactService.showContact(decisionMaker);
-            ;
+            
 
             //Create a new opportunity with the information we asked the user and the new contact created.
             System.out.println("Creating a new opportunity.");
@@ -171,11 +170,12 @@ public class LeadService {
                 newAccount = accountRepository.findById(accountId).get();
             }
             //Add the newly created decision maker and opportunity to the new accounts contacts list and opportunities list.
-            newAccount.addContacts(decisionMaker);
+            newAccount.getContactList().add(decisionMaker);
             decisionMaker.setAccount(newAccount);
             decisionMaker.setOpportunity(newOpportunity);
-            newAccount.addOpportunities(newOpportunity);
+            newAccount.getOpportunityList().add(newOpportunity);
             newOpportunity.setAccount(newAccount);
+
 
             //Save data in database.
             contactRepository.save(decisionMaker);
@@ -188,7 +188,7 @@ public class LeadService {
         } else {
             System.err.println("No lead matches '" + id + "' --> Type 'show leads' to see the list of available ids.");
         }
-    }*/
+    }
 
     public void removeLead() {
         int id = Integer.parseInt(AppHelp.getId());
