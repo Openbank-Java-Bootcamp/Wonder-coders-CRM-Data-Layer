@@ -20,11 +20,11 @@ public class OpportunityService {
         String title = "OPPORTUNITY";
 
         // Table headers
-        String[] headers = {"ID                ", "PRODUCT         ", "QUANTITY    ", "DECISION MAKER                 ", "STATUS            "};
+        String[] headers = {"PRODUCT         ", "QUANTITY    ", "DECISION MAKER                 ", "STATUS            "};
 
         // List with the data to show
         List<String[]> list = new ArrayList<>();
-        String[] arr = {opportunity.getOpportunityId().toString(), opportunity.getProduct().toString(), Integer.toString(opportunity.getQuantity()), opportunity.getDecisionMaker().toString(), opportunity.getStatus().toString()};
+        String[] arr = {opportunity.getProduct().toString(), Integer.toString(opportunity.getQuantity()), opportunity.getDecisionMaker().toString(), opportunity.getStatus().toString()};
         list.add(arr);
 
         AppHelp.printTable(title, headers, list);
