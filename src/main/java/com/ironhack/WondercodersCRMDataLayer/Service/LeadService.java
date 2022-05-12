@@ -65,8 +65,8 @@ public class LeadService {
 
     public void newLead() {
         String name = AppHelp.askForString("Name :");
-        String phoneNumber = AppHelp.askForString("Phone number: ");
-        String email = AppHelp.askForString("Email :");
+        String phoneNumber = AppHelp.askForPhoneNumber("Phone number: ");
+        String email = AppHelp.askForEmail("Email :");
         String companyName = AppHelp.askForString("Company name :");
         if (salesRepRepository.findAll().size()==0){
             salesRepService.addNewSalesRep();
