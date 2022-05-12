@@ -11,8 +11,10 @@ import java.util.*;
 
 @Service
 public class OpportunityService {
-    @Autowired
-    App app;
+    /*@Autowired
+    App app;*/
+
+    App app = new App();
 
     @Autowired
     OpportunityRepository opportunityRepository;
