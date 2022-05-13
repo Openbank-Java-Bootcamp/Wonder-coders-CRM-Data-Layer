@@ -34,7 +34,7 @@ TextColor class is a library of different colors for the log to be printed out.
 ![class diagram](./src/images/class.png)
 
 ### DB model:
-![model](./src/images/db_model.png)
+![model](./src/images/class.png)
 
 
 *This CRM was developed using java.*
