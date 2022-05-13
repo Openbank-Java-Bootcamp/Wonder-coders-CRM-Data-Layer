@@ -22,7 +22,7 @@ public class Contact {
     @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.ALL)
     private Opportunity opportunity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn (name = "account_id")
     private Account account;
 
@@ -110,13 +110,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "contactId=" + contactId +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", opportunity=" + opportunity +
-                ", account=" + account +
-                '}';
+        return  contactId +
+                ", " + name ;
     }
 }
