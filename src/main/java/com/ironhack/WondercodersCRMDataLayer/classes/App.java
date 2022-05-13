@@ -51,7 +51,7 @@ public class App {
     public void initialize() {
         salesRepRepository.findAll();
         setAppCommands();
-        //setMinData();
+        setMinData();
         showIntro();
         do {
             String nextCommand = setCurrentCommandAndId();
