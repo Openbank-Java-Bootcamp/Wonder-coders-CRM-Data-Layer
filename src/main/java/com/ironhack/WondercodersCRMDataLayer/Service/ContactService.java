@@ -21,10 +21,10 @@ public class ContactService {
     public void showContacts() {
         List<Contact> contacts = contactRepository.findAll();
         String title = "CONTACT LIST";
-        String[] headers = {"ID      ", "NAME                              ", "PHONE NUMBER                      ", "EMAIL                              "};
+        String[] headers = {"ID      ", "NAME                              ", "PHONE NUMBER                      ", "EMAIL                              ", "ACCOUNT                              "};
         List<String[]> list = new ArrayList<>();
         for (Contact contact : contacts) {
-            String[] values = {Integer.toString(contact.getContactId()), contact.getName(), contact.getPhoneNumber(), contact.getEmail()};
+            String[] values = {Integer.toString(contact.getContactId()), contact.getName(), contact.getPhoneNumber(), contact.getEmail(), Integer.toString(contact.getAccount().getAccountId())};
             list.add(values);
         }
         AppHelp.printTable(title, headers, list);
