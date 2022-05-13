@@ -4,6 +4,9 @@
 
 This tool will make tracking prospective and existing customers through the sales process much easier for the companies.The App is ready to be used, just run the main file and the App will start working. It will first show the user a list of all the commands accepted and the user will just have to type whatever they want to do. The App will constantly ask the user for information and it will complete the request with the information given. Easy and simple!
 
+<b> New features! </b>
+In the upgraded version, a reporting feature is available. Companies will be able to receive useful information regarding their sales so that they can improve them!
+
 ### Image from the app:
 ![how to use](./src/images/howToUse.png)
 
@@ -30,27 +33,15 @@ Color enumeration is a list of colors that can be used in the application.
 
 The model package contains every entity needed to create the tables in the database, defining the relationships between them as we want them to be. There are 5 entities: Account, Contact, Lead, Opportunity and SalesRep. The models only contain the propperties, the constructors and the getters and the setters.
 
-The repository package has all the repositories related to the models mentioned before, one per each of them. These help us communicate with our database and data 
+The repository package has all the repositories related to the models mentioned before, one per each of them. These help us communicate with our database and filter data as we need, thanks to the queries inside of them. 
 
-The service package
-
-Opportunity service contains the methods to show a list of opportunities, lookup one opportunity and change the status to close won or closed lost.
-
-The Account service contains methods to create an account, show an account or a list of accounts and look up an account by its Id.
-
-Lead service The only differences between them are Lead class contains a method to create new leads and a method to convert leads into opportunities, contacts and accounts.  
-
-Contact service
-
-Sales Rep service
-
-
+Inside the service package are the methods we use to show the information, filtered depending the queries or not, inside the database and create or update data.
 
 ### Class diagram:
 ![class diagram](./src/images/class.png)
 
 ### DB model:
-![model](./src/images/class.png)
+![model](./src/images/db_model.png)
 
 
 *This CRM was developed using java.*
