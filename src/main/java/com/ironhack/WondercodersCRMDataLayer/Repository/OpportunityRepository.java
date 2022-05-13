@@ -13,7 +13,7 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
     @Query(value = "SELECT sales_rep.name, COUNT(*) FROM Opportunity INNER JOIN sales_rep ON opportunity.sales_rep = sales_rep.sales_rep_id GROUP BY sales_rep", nativeQuery = true)
     List<Object[]> findAllBySalesRepId(); // All Opportunities by SalesRep
 
-    @Query(value = "SELECT sales_rep.name, opportunity.status, COUNT(*) FROM Opportunity INNER JOIN sales_rep ON opportunity.sales_rep = sales_rep.sales_rep_id GROUP BY sales_rep HAVING opportunity.status = :status", nativeQuery = true)
+    @Query(value = "SELECT sales_rep.name, COUNT(*) FROM Opportunity INNER JOIN sales_rep ON opportunity.sales_rep = sales_rep.sales_rep_id GROUP BY sales_rep HAVING opportunity.status = :status", nativeQuery = true)
     List<Object[]> findAllByStatusAndSalesRepId(@Param("status") Status status); // All Status Opportunities by SalesRep
 
     @Query(value = "SELECT product, COUNT(*) FROM Opportunity GROUP BY product", nativeQuery = true)
