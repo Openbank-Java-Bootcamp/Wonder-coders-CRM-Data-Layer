@@ -167,12 +167,12 @@ public class App {
         o1.setAccount(accountRepository.findByCompanyName("Beatriz&Co"));
         opportunityRepository.save(o1);
 
-        Opportunity o2 = new Opportunity(Product.FLATBED, 3, contactRepository.findByName("Saul"), salesRepRepository.findByName("Soledad"));
+        Opportunity o2 = new Opportunity(Product.HYBRID, 2, contactRepository.findByName("Saul"), salesRepRepository.findByName("Soledad"));
         o2.setStatus(Status.CLOSED_LOST);
         o2.setAccount(accountRepository.findByCompanyName("Saul&Co"));
         opportunityRepository.save(o2);
 
-        Opportunity o3 = new Opportunity(Product.FLATBED, 3, contactRepository.findByName("Fer"), salesRepRepository.findByName("Juan"));
+        Opportunity o3 = new Opportunity(Product.BOX, 7, contactRepository.findByName("Fer"), salesRepRepository.findByName("Juan"));
         o3.setAccount(accountRepository.findByCompanyName("Fer&Co"));
         opportunityRepository.save(o3);
 
