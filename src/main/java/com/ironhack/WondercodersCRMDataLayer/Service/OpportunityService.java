@@ -131,7 +131,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_WON status Opportunities by SalesRep
     public void reportOpportunitiesByStatusWonAndSalesRep() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_WON);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_WON.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -148,7 +148,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_LOST status Opportunities by SalesRep
     public void reportOpportunitiesByStatusLostAndSalesRep() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_LOST);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_LOST.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -165,7 +165,7 @@ public class OpportunityService {
 
     // Count of all OPEN status Opportunities by SalesRep
     public void reportOpportunitiesByStatusOpenAndSalesRep() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.OPEN);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.OPEN.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -199,7 +199,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_WON status Opportunities by Product
     public void reportOpportunitiesByStatusWonAndProduct() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_WON);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_WON.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -216,7 +216,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_LOST status Opportunities by Product
     public void reportOpportunitiesByStatusLostAndProduct() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_LOST);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_LOST.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -233,7 +233,7 @@ public class OpportunityService {
 
     // Count of all OPEN status Opportunities by Product
     public void reportOpportunitiesByStatusOpenAndProduct() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.OPEN);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.OPEN.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -267,7 +267,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_WON status Opportunities by Country
     public void reportOpportunitiesByStatusWonAndCountry() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_WON);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_WON.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -284,7 +284,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_LOST status Opportunities by Country
     public void reportOpportunitiesByStatusLostAndCountry() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_LOST);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_LOST.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -301,7 +301,7 @@ public class OpportunityService {
 
     // Count of all OPEN status Opportunities by Country
     public void reportOpportunitiesByStatusOpenAndCountry() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -335,7 +335,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_WON status Opportunities by City
     public void reportOpportunitiesByStatusWonAndCity() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCity(Status.CLOSED_WON);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCity(Status.CLOSED_WON.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -352,7 +352,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_LOST status Opportunities by City
     public void reportOpportunitiesByStatusLostAndCity() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCity(Status.CLOSED_LOST);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCity(Status.CLOSED_LOST.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -369,7 +369,7 @@ public class OpportunityService {
 
     // Count of all OPEN status Opportunities by City
     public void reportOpportunitiesByStatusOpenAndCity() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -403,7 +403,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_WON status Opportunities by Industry
     public void reportOpportunitiesByStatusWonAndIndustry() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_WON);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_WON.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -420,7 +420,7 @@ public class OpportunityService {
 
     // Count of all CLOSE_LOST status Opportunities by Industry
     public void reportOpportunitiesByStatusLostAndIndustry() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_LOST);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_LOST.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {
@@ -437,7 +437,7 @@ public class OpportunityService {
 
     // Count of all OPEN status Opportunities by Industry
     public void reportOpportunitiesByStatusOpenAndIndustry() {
-        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN.toString());
         if (opportunities == null || opportunities.isEmpty()) {
             System.err.println("No info");
         } else {

@@ -64,7 +64,7 @@ class OpportunityRepositoryTest {
 
     @Test
     public void findAllByStatusAndSalesRepId_ValidData_ListOpportunities() {
-        List<Object[]> result = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_WON);
+        List<Object[]> result = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_WON.toString());
         assertEquals(1, result.size());
         assertEquals("Rep2", result.get(0)[0]);
     }
