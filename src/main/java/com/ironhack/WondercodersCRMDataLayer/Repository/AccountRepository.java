@@ -12,23 +12,18 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     // The mean employeeCount
-    @Query(value = "SELECT AVG( employeeCount ) AS Mean Employee Count " +
-            "FROM Account", nativeQuery = true)
-    List<Object[]> meanEmployees();
+    @Query(value = "SELECT AVG( employeeCount ) AS Mean Employee Count FROM Account", nativeQuery = true)
+    double meanEmployees();
 
     //The median employeeCount
-    @Query(value = "SELECT TOP 1" +
-            "PERCENTILE_CONT(0.5) WITHIN GROUP employeeCount OVER() AS Media quantity" +
-            "FROM account", nativeQuery = true)
-    List<Object[]> medianEmployees();
+    @Query(value = "SELECT TOP 1 PERCENTILE_CONT(0.5) WITHIN GROUP employeeCount OVER() AS Media quantity FROM account", nativeQuery = true)
+    double medianEmployees();
 
-    @Query(value = "SELECT MAX(employeeCount) AS Maximum quantity" +
-            "FROM account", nativeQuery = true)
-    List<Object[]> maxEmployeeCount();
+    @Query(value = "SELECT MAX(employeeCount) AS Maximum quantity FROM account", nativeQuery = true)
+    double maxEmployeeCount();
 
-    @Query(value = "SELECT MIN(employeeCount) AS Minimum quantity" +
-            "FROM account", nativeQuery = true)
-    List<Object[]> minEmployeeCount();
+    @Query(value = "SELECT MIN(employeeCount) AS Minimum quantity FROM account", nativeQuery = true)
+    double minEmployeeCount();
 
 
 
