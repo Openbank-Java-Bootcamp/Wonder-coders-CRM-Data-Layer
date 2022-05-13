@@ -150,8 +150,6 @@ public class LeadService {
                 newAccount.setEmployeeCount(employeeCount);
                 newAccount.setCity(city);
                 newAccount.setCountry(country);
-                newAccount.setContactList(new ArrayList<>());
-                newAccount.setOpportunityList(new ArrayList<>());
                 System.out.println("New account created from Lead " + id);
             } else {
             String answer = AppHelp.askForYesOrNo("Would you like to create a new Account to associate with?");
