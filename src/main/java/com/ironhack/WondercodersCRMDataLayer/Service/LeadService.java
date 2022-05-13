@@ -38,6 +38,10 @@ public class LeadService {
 
 
     public void reportLeadBySalesRep() {
+        if (leadRepository.reportLeadBySalesRepId().size() == 0){
+            System.err.println("No report to show.");
+        }
+        else {
         List<Object[]> leads = leadRepository.reportLeadBySalesRepId();
         String title = "LEAD REPORT BY SALES REP";
         String[] headers = {"SALES REP NAME                                    ", "LEAD COUNT                                                                     "};
@@ -46,7 +50,7 @@ public class LeadService {
             String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
             list.add(values);
         }
-        AppHelp.printTable(title, headers, list);
+        AppHelp.printTable(title, headers, list);}
     }
 
     public void showLead(Lead newLead) {
