@@ -11,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
+    Account findByCompanyName(String companyName);
+
     // The mean employeeCount
     @Query(value = "SELECT AVG( employeeCount ) AS Mean Employee FROM Account", nativeQuery = true)
     double meanEmployees();
