@@ -472,7 +472,8 @@ public class OpportunityService {
         if (opportunityRepository.findAll().isEmpty()) {
             System.err.println("No info");
         } else {
-            double medianQuantity = opportunityRepository.medianQuantity();
+            List<Integer> medianQuantityList = opportunityRepository.medianQuantityList();
+            double medianQuantity = AppHelp.getMedianValue(medianQuantityList);
             String title = "MEDIAN QUANTITY REPORT OF PRODUCTS ORDER";
             String[] headers = {"MEDIAN QUANTITY                                    "};
             List<String[]> list = new ArrayList<>();
@@ -534,14 +535,13 @@ public class OpportunityService {
         if (opportunityRepository.findAll().isEmpty()) {
             System.err.println("No info");
         } else {
-            List<Object[]> opportunities = opportunityRepository.medianOpportunities();
+            List<Integer> opportunities = opportunityRepository.medianOpportunitiesList();
+            double medianQuantity = AppHelp.getMedianValue(opportunities);
             String title = "MEDIAN NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
-            String[] headers = {"ACCOUNT                                    ", "MEDIAN NUMBER                                                                     "};
+            String[] headers = {"MEDIAN QUANTITY                                    "};
             List<String[]> list = new ArrayList<>();
-            for (Object[] object : opportunities) {
-                String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
-                list.add(values);
-            }
+            String[] values = {String.valueOf(medianQuantity)};
+            list.add(values);
             AppHelp.printTable(title, headers, list);
         }
     }

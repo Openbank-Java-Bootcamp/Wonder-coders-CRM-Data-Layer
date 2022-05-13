@@ -2,9 +2,7 @@ package com.ironhack.WondercodersCRMDataLayer.classes;
 
 import com.ironhack.WondercodersCRMDataLayer.Enums.Color;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class AppHelp {
 
@@ -179,4 +177,11 @@ public class AppHelp {
         TextColor.reset();
     }
 
+    public static double getMedianValue(List<Integer> list) {
+        ArrayList<Integer> arrayList = new ArrayList<>(list);
+        Collections.sort(arrayList);
+        var length = arrayList.size();
+        if (length % 2 == 0) return (double) (arrayList.get(length / 2) + arrayList.get(length / 2 - 1)) / 2.0;
+        return (double) arrayList.get(length / 2);
+    }
 }

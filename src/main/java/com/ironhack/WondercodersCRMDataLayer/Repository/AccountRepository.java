@@ -18,8 +18,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     double meanEmployees();
 
     //The median employeeCount
-    @Query(value = "SELECT TOP 1 PERCENTILE_CONT(0.5) WITHIN GROUP employee_count OVER() AS Media_Count FROM account", nativeQuery = true)
-    double medianEmployees();
+    @Query(value = "SELECT employee_count FROM account", nativeQuery = true)
+    List<Integer> medianEmployees();
 
     @Query(value = "SELECT MAX(employee_count) AS Maximum_Count FROM account", nativeQuery = true)
     double maxEmployeeCount();

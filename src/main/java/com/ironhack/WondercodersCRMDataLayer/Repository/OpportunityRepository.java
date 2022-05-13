@@ -43,8 +43,8 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
     @Query(value = "SELECT AVG(quantity) AS mean_quantity FROM opportunity", nativeQuery = true)
     double meanQuantity(); // Mean quantity of products order
 
-    @Query(value = "SELECT TOP 1 PERCENTILE_CONT(0.5) OVER() AS media_quantity FROM opportunity", nativeQuery = true)
-    double medianQuantity(); // Median quantity of products order
+    @Query(value = "SELECT quantity FROM opportunity", nativeQuery = true)
+    List<Integer> medianQuantityList(); // Median quantity of products order
 
     @Query(value = "SELECT MAX(quantity) AS maximum_quantity FROM opportunity", nativeQuery = true)
     double maxQuantity(); // Maximum quantity of products order
@@ -55,8 +55,8 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
     @Query(value = "SELECT account, AVG(count) AS mean_quantity FROM (SELECT account, COUNT(*) count FROM opportunity GROUP BY account) AS A", nativeQuery = true)
     List<Object[]> meanOpportunities(); // Mean number of Opportunities associated with an Account
 
-    @Query(value = "SELECT account, TOP 1 PERCENTILE_CONT(0.5) WITHIN GROUP account OVER() AS media_quantity FROM opportunity", nativeQuery = true)
-    List<Object[]> medianOpportunities(); // Median number of Opportunities associated with an Account
+    @Query(value = "SELECT COUNT(*) FROM opportunity GROUP BY account", nativeQuery = true)
+    List<Integer> medianOpportunitiesList(); // Median number of Opportunities associated with an Account
 
     @Query(value = "SELECT account, MAX(count) AS mean_quantity FROM (SELECT account, COUNT(*) count FROM opportunity GROUP BY account) AS A", nativeQuery = true)
     List<Object[]> maxOpportunities(); // Maximum number of Opportunities associated with an Account

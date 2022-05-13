@@ -84,11 +84,12 @@ public class AccountService {
         if (accountRepository.findAll().isEmpty()) {
             System.err.println("There are not enough data");
         } else {
-            double medianEmployeesFromDb = accountRepository.medianEmployees();
+            List<Integer> medianEmployeesFromDb = accountRepository.medianEmployees();
+            double medianQuantity = AppHelp.getMedianValue(medianEmployeesFromDb);
             String title = "MEDIAN QUANTITY REPORT OF EMPLOYEES COUNT";
             String[] headers = {"MEDIAN EMPLOYEES COUNT                              "};
             List<String[]> list = new ArrayList<>();
-            String[] values = {String.valueOf(medianEmployeesFromDb)};
+            String[] values = {String.valueOf(medianQuantity)};
             list.add(values);
             AppHelp.printTable(title, headers, list);
         }
