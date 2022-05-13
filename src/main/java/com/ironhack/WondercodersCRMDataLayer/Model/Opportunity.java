@@ -38,6 +38,10 @@ public class Opportunity {
         this.salesRepId = salesRepId;
     }
 
+    public void setOpportunityId(Integer opportunityId) {
+        this.opportunityId = opportunityId;
+    }
+
     public Integer getOpportunityId() {
         return opportunityId;
     }
