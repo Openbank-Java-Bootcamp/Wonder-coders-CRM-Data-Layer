@@ -514,10 +514,10 @@ public class OpportunityService {
 
     // Mean number of Opportunities associated with an Account
     public void reportMeanOpportunities() {
-        List<Object[]> opportunities = opportunityRepository.meanOpportunities();
-        if (opportunities == null || opportunities.isEmpty()) {
+        if (opportunityRepository.findAll().isEmpty()) {
             System.err.println("No info");
         } else {
+            List<Object[]> opportunities = opportunityRepository.meanOpportunities();
             String title = "MEAN NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
             String[] headers = {"ACCOUNT                                    ", "MEAN NUMBER                                                                     "};
             List<String[]> list = new ArrayList<>();
@@ -531,10 +531,10 @@ public class OpportunityService {
 
     // Median number of Opportunities associated with an Account
     public void reportMedianOpportunities() {
-        List<Object[]> opportunities = opportunityRepository.medianOpportunities();
-        if (opportunities == null || opportunities.isEmpty()) {
+        if (opportunityRepository.findAll().isEmpty()) {
             System.err.println("No info");
         } else {
+            List<Object[]> opportunities = opportunityRepository.medianOpportunities();
             String title = "MEDIAN NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
             String[] headers = {"ACCOUNT                                    ", "MEDIAN NUMBER                                                                     "};
             List<String[]> list = new ArrayList<>();
@@ -548,10 +548,10 @@ public class OpportunityService {
 
     // Maximum number of Opportunities associated with an Account
     public void reportMaxOpportunities() {
-        List<Object[]> opportunities = opportunityRepository.maxOpportunities();
-        if (opportunities == null || opportunities.isEmpty()) {
+        if (opportunityRepository.findAll().isEmpty()) {
             System.err.println("No info");
         } else {
+            List<Object[]> opportunities = opportunityRepository.maxOpportunities();
             String title = "MAXIMUM NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
             String[] headers = {"ACCOUNT                                    ", "MAXIMUM NUMBER                                                                     "};
             List<String[]> list = new ArrayList<>();
@@ -565,10 +565,10 @@ public class OpportunityService {
 
     // Minimum number of Opportunities associated with an Account
     public void reportMinOpportunities() {
-        List<Object[]> opportunities = opportunityRepository.minOpportunities();
-        if (opportunities == null || opportunities.isEmpty()) {
+        if (opportunityRepository.findAll().isEmpty()) {
             System.err.println("No info");
         } else {
+            List<Object[]> opportunities = opportunityRepository.minOpportunities();
             String title = "MINIMUM NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
             String[] headers = {"ACCOUNT                                    ", "MINIMUM NUMBER                                                                     "};
             List<String[]> list = new ArrayList<>();

@@ -52,15 +52,15 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
     @Query(value = "SELECT MIN(quantity) AS minimum_quantity FROM opportunity", nativeQuery = true)
     double minQuantity(); // Minimum quantity of products order
 
-    @Query(value = "SELECT account, AVG(COUNT(*)) AS mean_quantity FROM opportunity GROUP BY account", nativeQuery = true)
+    @Query(value = "SELECT account, AVG(count) AS mean_quantity FROM (SELECT account, COUNT(*) count FROM opportunity GROUP BY account) AS A", nativeQuery = true)
     List<Object[]> meanOpportunities(); // Mean number of Opportunities associated with an Account
 
     @Query(value = "SELECT account, TOP 1 PERCENTILE_CONT(0.5) WITHIN GROUP account OVER() AS media_quantity FROM opportunity", nativeQuery = true)
     List<Object[]> medianOpportunities(); // Median number of Opportunities associated with an Account
 
-    @Query(value = "SELECT account, MAX(COUNT(*)) AS maximum_quantity FROM opportunity GROUP BY account", nativeQuery = true)
+    @Query(value = "SELECT account, MAX(count) AS mean_quantity FROM (SELECT account, COUNT(*) count FROM opportunity GROUP BY account) AS A", nativeQuery = true)
     List<Object[]> maxOpportunities(); // Maximum number of Opportunities associated with an Account
 
-    @Query(value = "SELECT account, MIN(COUNT(*)) AS minimum_quantity FROM opportunity GROUP BY account", nativeQuery = true)
+    @Query(value = "SELECT account, MIN(count) AS mean_quantity FROM (SELECT account, COUNT(*) count FROM opportunity GROUP BY account) AS A", nativeQuery = true)
     List<Object[]> minOpportunities(); // Minimum number of Opportunities associated with an Account
 }
