@@ -182,6 +182,7 @@ public class LeadService {
             //Add the newly created decision maker and opportunity to the new accounts contacts list and opportunities list.
             decisionMaker.setAccount(newAccount);
             newOpportunity.setAccount(newAccount);
+            System.out.println("Added to account: ");
             accountService.showAccount(newAccount);
 
 
