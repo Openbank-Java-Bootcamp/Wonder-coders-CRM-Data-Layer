@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     // The mean employeeCount
-    @Query(value = "SELECT AVG( employeeCount ) AS Mean Employee Count FROM Account", nativeQuery = true)
+    @Query(value = "SELECT AVG( employeeCount ) AS Mean Employee FROM Account", nativeQuery = true)
     double meanEmployees();
 
     //The median employeeCount

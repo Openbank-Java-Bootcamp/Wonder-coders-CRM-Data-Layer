@@ -54,7 +54,7 @@ public class AccountService {
             String[] headers = {"ACCOUNT-ID      ", "COMPANY NAME    ", "INDUSTRY        ", "EMPLOYEES NUMBER", "CITY            ", "COUNTRY         "};
 
             List<String[]> list = new ArrayList<>();
-            String[] array = {accountFromDB.get().getAccountId().toString(), accountFromDB.get().getIndustry().toString(), String.valueOf(accountFromDB.get().getEmployeeCount()), accountFromDB.get().getCity(), accountFromDB.get().getCountry() };
+            String[] array = {accountFromDB.get().getAccountId().toString(), accountFromDB.get().getIndustry().toString(), String.valueOf(accountFromDB.get().getEmployeeCount()), accountFromDB.get().getCity(), accountFromDB.get().getCountry()};
             list.add(array);
 
             AppHelp.printTable(title, headers, list);
@@ -65,11 +65,11 @@ public class AccountService {
     }
 
     //The mean employeeCount
-    public void  getMeanEmployees() {
-        double meanEmployeesFromDb = accountRepository.meanEmployees();
+    public void getMeanEmployees() {
         if (accountRepository.findAll().isEmpty()) {
             System.err.println("There are not enough data");
-        }else {
+        } else {
+            double meanEmployeesFromDb = accountRepository.meanEmployees();
             String title = "MEAN QUANTITY REPORT OF EMPLOYEES COUNT";
             String[] headers = {"MEAN EMPLOYEES COUNT                              "};
             List<String[]> list = new ArrayList<>();
@@ -81,10 +81,10 @@ public class AccountService {
 
     //The median employeeCount
     public void getMedianEmployees() {
-        double medianEmployeesFromDb = accountRepository.medianEmployees();
         if (accountRepository.findAll().isEmpty()) {
             System.err.println("There are not enough data");
-        }else {
+        } else {
+            double medianEmployeesFromDb = accountRepository.medianEmployees();
             String title = "MEDIAN QUANTITY REPORT OF EMPLOYEES COUNT";
             String[] headers = {"MEDIAN EMPLOYEES COUNT                              "};
             List<String[]> list = new ArrayList<>();
@@ -96,10 +96,10 @@ public class AccountService {
 
     //The maximum employeeCount
     public void getMaxEmployeeCount() {
-        double maxEmployeesFromDb = accountRepository.maxEmployeeCount();
         if (accountRepository.findAll().isEmpty()) {
             System.err.println("There are not enough data");
-        }else {
+        } else {
+            double maxEmployeesFromDb = accountRepository.maxEmployeeCount();
             String title = "MAX NUMBER REPORT OF EMPLOYEES COUNT";
             String[] headers = {"MAX NUMBER EMPLOYEES COUNT                              "};
             List<String[]> list = new ArrayList<>();
@@ -111,10 +111,10 @@ public class AccountService {
 
     //The minimum employeeCount
     public void getMinEmployeeCount() {
-        double minEmployeesFromDb = accountRepository.minEmployeeCount();
         if (accountRepository.findAll().isEmpty()) {
             System.err.println("There are not enough data");
-        }else {
+        } else {
+            double minEmployeesFromDb = accountRepository.minEmployeeCount();
             String title = "MIN NUMBER REPORT OF EMPLOYEES COUNT";
             String[] headers = {"MIN NUMBER EMPLOYEES COUNT                              "};
             List<String[]> list = new ArrayList<>();
