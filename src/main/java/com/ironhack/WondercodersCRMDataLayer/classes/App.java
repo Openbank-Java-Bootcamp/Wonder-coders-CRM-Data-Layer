@@ -1,7 +1,11 @@
 package com.ironhack.WondercodersCRMDataLayer.classes;
 
 import com.ironhack.WondercodersCRMDataLayer.Enums.Color;
-import com.ironhack.WondercodersCRMDataLayer.Repository.SalesRepRepository;
+import com.ironhack.WondercodersCRMDataLayer.Enums.Industry;
+import com.ironhack.WondercodersCRMDataLayer.Enums.Product;
+import com.ironhack.WondercodersCRMDataLayer.Enums.Status;
+import com.ironhack.WondercodersCRMDataLayer.Model.*;
+import com.ironhack.WondercodersCRMDataLayer.Repository.*;
 import com.ironhack.WondercodersCRMDataLayer.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,15 +20,23 @@ public class App {
     @Autowired
     public SalesRepRepository salesRepRepository;
     @Autowired
+    public LeadRepository leadRepository;
+    @Autowired
+    public OpportunityRepository opportunityRepository;
+    @Autowired
+    public ContactRepository contactRepository;
+    @Autowired
+    public AccountRepository accountRepository;
+
+
+    @Autowired
     public SalesRepService salesRepService;
     @Autowired
     public ContactService contactService;
     @Autowired
     public LeadService leadService;
-
     @Autowired
     public AccountService accountService;
-
     @Autowired
     public OpportunityService opportunityService;
 
@@ -39,6 +51,7 @@ public class App {
     public void initialize() {
         salesRepRepository.findAll();
         setAppCommands();
+        setMinData();
         showIntro();
         do {
             String nextCommand = setCurrentCommandAndId();
@@ -118,6 +131,53 @@ public class App {
         Command reportMinAccOpportunity = new Command("min opps per account", "min opps per account", "Display the min number of Opportunities associated with an Account", () -> opportunityService.reportMinOpportunities(), true);
     }
 
+    public void setMinData() {
+
+        // Sales reps
+        salesRepRepository.save(new SalesRep("Ana"));
+        salesRepRepository.save(new SalesRep("Juan"));
+        salesRepRepository.save(new SalesRep("Soledad"));
+
+        //Leads
+        leadRepository.save(new Lead("Nuria", "111111111", "nuri@nuria.com", "Nuria&Co", salesRepRepository.findByName("Ana")));
+        leadRepository.save(new Lead("Olatz", "222222222", "olatz@olatz.com", "Olatz&Co", salesRepRepository.findByName("Juan")));
+        leadRepository.save(new Lead("Paula", "333333333", "paula@paula.com", "Paula&Co", salesRepRepository.findByName("Ana")));
+
+        // Accounts
+        accountRepository.save(new Account("Beatriz&Co", Industry.ECOMMERCE, 3, "Madrid", "Spain"));
+        accountRepository.save(new Account("Saul&Co", Industry.MANUFACTURING, 7, "Bilbao", "Spain"));
+        accountRepository.save(new Account("Fer&Co", Industry.PRODUCE, 5, "Barcelona", "Spain"));
+
+        // Contacts
+        Contact c1 = new Contact("Beatriz", "444444444", "beatriz@beatriz.com");
+        c1.setAccount(accountRepository.findByCompanyName("Beatriz&Co"));
+        contactRepository.save(c1);
+
+        Contact c2 = new Contact("Saul", "555555555", "saul@saul.com");
+        c2.setAccount(accountRepository.findByCompanyName("Saul&Co"));
+        contactRepository.save(c2);
+
+        Contact c3 = new Contact("Fer", "666666666", "fer@fer.com");
+        c3.setAccount(accountRepository.findByCompanyName("Fer&Co"));
+        contactRepository.save(c3);
+
+        // Opportunities
+        Opportunity o1 = new Opportunity(Product.FLATBED, 3, contactRepository.findByName("Beatriz"), salesRepRepository.findByName("Ana"));
+        o1.setStatus(Status.CLOSED_WON);
+        o1.setAccount(accountRepository.findByCompanyName("Beatriz&Co"));
+        opportunityRepository.save(o1);
+
+        Opportunity o2 = new Opportunity(Product.FLATBED, 3, contactRepository.findByName("Saul"), salesRepRepository.findByName("Soledad"));
+        o2.setStatus(Status.CLOSED_LOST);
+        o2.setAccount(accountRepository.findByCompanyName("Saul&Co"));
+        opportunityRepository.save(o2);
+
+        Opportunity o3 = new Opportunity(Product.FLATBED, 3, contactRepository.findByName("Fer"), salesRepRepository.findByName("Juan"));
+        o3.setAccount(accountRepository.findByCompanyName("Fer&Co"));
+        opportunityRepository.save(o3);
+
+    }
+
     public void showIntro() {
         TextColor.changeTo(Color.WHITE_BOLD_BRIGHT);
         System.out.println(
@@ -164,6 +224,8 @@ public class App {
         // Execute command
         if(Command.getCommandsList().containsKey(currentCommand)) {
             Command.getCommandsList().get(currentCommand).execute();
+        } else if(Command.getReportsList().containsKey(currentCommand)) {
+            Command.getReportsList().get(currentCommand).execute();
         } else {
             System.err.println("No command matches '" + nextCommand + "' --> Type 'command list' to see the list of available commands.");
         }
