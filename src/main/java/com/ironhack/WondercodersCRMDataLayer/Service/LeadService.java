@@ -37,10 +37,6 @@ public class LeadService {
     private AccountService accountService;
 
 
-
-
-
-
     public void reportLeadBySalesRep() {
         List<Object[]> leads = leadRepository.reportLeadBySalesRepId();
         String title = "LEAD REPORT BY SALES REP";
@@ -67,7 +63,7 @@ public class LeadService {
         String phoneNumber = AppHelp.askForPhoneNumber("Phone number: ");
         String email = AppHelp.askForEmail("Email :");
         String companyName = AppHelp.askForString("Company name :");
-        if (salesRepRepository.findAll().size()==0){
+        if (salesRepRepository.findAll().size() == 0) {
             salesRepService.addNewSalesRep();
             int salesRepId = salesRepRepository.findAll().get(0).getSalesRepId();
             SalesRep salesRep = salesRepRepository.findById(salesRepId).get();
@@ -75,25 +71,25 @@ public class LeadService {
             leadRepository.save(newLead);
             System.out.println("New Lead created");
             showLead(newLead);
+        } else {
+            int salesRepId = AppHelp.askForInt("Sales Rep id :");
+            SalesRep salesRep = new SalesRep();
+            while (salesRepRepository.findById(salesRepId).isEmpty()) {
+                System.err.println("No Sales Rep matches '" + salesRepId + "' --> Choose a Sales Rep from the following available ids list.");
+                salesRepService.getAllSalesReps();
+                salesRepId = AppHelp.askForInt("Sales Rep id :");
+            }
+            salesRep.setSalesRepId(salesRepId);
+            salesRep = salesRepRepository.findById(salesRepId).get();
+            Lead newLead = new Lead(name, phoneNumber, email, companyName, salesRep);
+            leadRepository.save(newLead);
+            System.out.println("New Lead created");
+            showLead(newLead);
         }
-        else{
-        int salesRepId = AppHelp.askForInt("Sales Rep id :");
-        SalesRep salesRep = new SalesRep();
-        while (salesRepRepository.findById(salesRepId).isEmpty()) {
-            System.err.println("No Sales Rep matches '" + salesRepId + "' --> Choose a Sales Rep from the following available ids list.");
-            salesRepService.getAllSalesReps();
-            salesRepId = AppHelp.askForInt("Sales Rep id :");
-        }
-        salesRep.setSalesRepId(salesRepId);
-        salesRep = salesRepRepository.findById(salesRepId).get();
-        Lead newLead = new Lead(name, phoneNumber, email, companyName, salesRep);
-        leadRepository.save(newLead);
-        System.out.println("New Lead created");
-        showLead(newLead);
-    }}
+    }
 
     public void lookUpLead() {
-        int id = Integer.parseInt( AppHelp.getId());
+        int id = Integer.parseInt(AppHelp.getId());
         if (leadRepository.findById(id).isPresent()) {
             showLead(leadRepository.findById(id).get());
         } else {
@@ -138,7 +134,7 @@ public class LeadService {
 
             System.out.println("New contact created from Lead " + id);
             contactService.showContact(decisionMaker);
-            
+
 
             //Create a new opportunity with the information we asked the user and the new contact created.
             System.out.println("Creating a new opportunity.");
@@ -149,6 +145,21 @@ public class LeadService {
             opportunityService.showOpportunity(newOpportunity);
 
             //Ask if a new Account needs to be created or not
+            if (accountRepository.findAll().size() == 0) {
+                System.out.println("Creating a new account.");
+                Industry industry = industryType[AppHelp.selectOption("What industry is the company in?", industryType)];
+                int employeeCount = AppHelp.askForInt("How many employees are in the company?");
+                String city = AppHelp.askForString("What city is the company located in?");
+                String country = AppHelp.askForString("What country is the company from?");
+                newAccount.setCompanyName(companyName);
+                newAccount.setIndustry(industry);
+                newAccount.setEmployeeCount(employeeCount);
+                newAccount.setCity(city);
+                newAccount.setCountry(country);
+                newAccount.setContactList(new ArrayList<>());
+                newAccount.setOpportunityList(new ArrayList<>());
+                System.out.println("New account created from Lead " + id);
+            } else {
             String answer = AppHelp.askForYesOrNo("Would you like to create a new Account to associate with?");
             if (answer.equals("yes")) {
                 //Create a new account with the information we asked the user and the information of the lead.
@@ -163,7 +174,6 @@ public class LeadService {
                 newAccount.setCity(city);
                 newAccount.setCountry(country);
                 System.out.println("New account created from Lead " + id);
-                accountService.showAccount(newAccount);
             } else {
                 //Ask for existing account id.
                 int accountId = AppHelp.askForInt("Existing Account id : ");
@@ -174,19 +184,17 @@ public class LeadService {
                 }
                 newAccount.setAccountId(accountId);
                 newAccount = accountRepository.findById(accountId).get();
-            }
+            }}
             //Add the newly created decision maker and opportunity to the new accounts contacts list and opportunities list.
-            newAccount.getContactList().add(decisionMaker);
             decisionMaker.setAccount(newAccount);
-            decisionMaker.setOpportunity(newOpportunity);
-            newAccount.getOpportunityList().add(newOpportunity);
             newOpportunity.setAccount(newAccount);
+            accountService.showAccount(newAccount);
 
 
             //Save data in database.
+            accountRepository.save(newAccount);
             contactRepository.save(decisionMaker);
             opportunityRepository.save(newOpportunity);
-            accountRepository.save(newAccount);
 
 
             //Remove the lead from the database once all the process is completed.

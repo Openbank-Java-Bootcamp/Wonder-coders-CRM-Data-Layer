@@ -19,7 +19,7 @@ public class Contact {
 
     private String email;
 
-    @OneToOne(mappedBy = "decisionMaker")
+    @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.ALL)
     private Opportunity opportunity;
 
     @ManyToOne
@@ -110,13 +110,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "contactId=" + contactId +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", opportunity=" + opportunity +
-                ", account=" + account +
-                '}';
+        return  contactId +
+                ", " + name ;
     }
 }
