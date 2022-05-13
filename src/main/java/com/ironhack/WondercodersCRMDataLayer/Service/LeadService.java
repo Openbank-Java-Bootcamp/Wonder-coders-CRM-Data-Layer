@@ -156,8 +156,6 @@ public class LeadService {
                 newAccount.setEmployeeCount(employeeCount);
                 newAccount.setCity(city);
                 newAccount.setCountry(country);
-                newAccount.setContactList(new ArrayList<>());
-                newAccount.setOpportunityList(new ArrayList<>());
                 System.out.println("New account created from Lead " + id);
             } else {
             String answer = AppHelp.askForYesOrNo("Would you like to create a new Account to associate with?");
@@ -188,6 +186,7 @@ public class LeadService {
             //Add the newly created decision maker and opportunity to the new accounts contacts list and opportunities list.
             decisionMaker.setAccount(newAccount);
             newOpportunity.setAccount(newAccount);
+            System.out.println("Added to account: ");
             accountService.showAccount(newAccount);
 
 

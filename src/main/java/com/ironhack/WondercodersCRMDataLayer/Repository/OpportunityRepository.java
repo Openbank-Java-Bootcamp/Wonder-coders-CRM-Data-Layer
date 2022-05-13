@@ -40,17 +40,17 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
     @Query(value = "SELECT account.industry, COUNT(*) FROM Opportunity INNER JOIN Account ON opportunity.account = account.account_id GROUP BY account.industry HAVING opportunity.status = :status", nativeQuery = true)
     List<Object[]> findAllByStatusAndIndustry(@Param("status") Status status); // All Status Opportunities by industry
 
-    @Query(value = "SELECT product, AVG(quantity) AS Mean quantity FROM opportunity GROUP BY product", nativeQuery = true)
-    List<Object[]> meanQuantity(); // Mean quantity of products order
+    @Query(value = "SELECT AVG(quantity) AS Mean quantity FROM opportunity", nativeQuery = true)
+    double meanQuantity(); // Mean quantity of products order
 
-    @Query(value = "SELECT product, TOP 1 PERCENTILE_CONT(0.5) WITHIN GROUP product OVER() AS Media quantity FROM opportunity", nativeQuery = true)
-    List<Object[]> medianQuantity(); // Median quantity of products order
+    @Query(value = "SELECT TOP 1 PERCENTILE_CONT(0.5) OVER() AS Media quantity FROM opportunity", nativeQuery = true)
+    double medianQuantity(); // Median quantity of products order
 
-    @Query(value = "SELECT product, MAX(quantity) AS Maximum quantity FROM opportunity GROUP BY product", nativeQuery = true)
-    List<Object[]> maxQuantity(); // Maximum quantity of products order
+    @Query(value = "SELECT MAX(quantity) AS Maximum quantity FROM opportunity", nativeQuery = true)
+    double maxQuantity(); // Maximum quantity of products order
 
-    @Query(value = "SELECT product, MIN(quantity) AS Minimum quantity FROM opportunity GROUP BY product", nativeQuery = true)
-    List<Object[]> minQuantity(); // Minimum quantity of products order
+    @Query(value = "SELECT MIN(quantity) AS Minimum quantity FROM opportunity", nativeQuery = true)
+    double minQuantity(); // Minimum quantity of products order
 
     @Query(value = "SELECT account, AVG(COUNT(*)) AS Mean quantity FROM opportunity GROUP BY account", nativeQuery = true)
     List<Object[]> meanOpportunities(); // Mean number of Opportunities associated with an Account

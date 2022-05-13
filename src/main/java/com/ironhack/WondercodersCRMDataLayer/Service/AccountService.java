@@ -17,7 +17,7 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-
+    // Show a list of accounts
     public void showAccounts() {
         List<Account> accountList = accountRepository.findAll();
         String title = "ACCOUNT LIST";
@@ -31,6 +31,7 @@ public class AccountService {
         AppHelp.printTable(title, headers, list);
     }
 
+    // Show an account details
     public void showAccount(Account account) {
         String title = "ACCOUNT ";
         String[] headers = {"COMPANY NAME    ", "INDUSTRY        ", "EMPLOYEES NUMBER", "CITY            ", "COUNTRY         "};
@@ -43,6 +44,7 @@ public class AccountService {
 
     }
 
+    // Returns an account by id
     public void lookUpAccount() {
         int id = Integer.parseInt(AppHelp.getId());
         Optional<Account> accountFromDB = accountRepository.findById(id);
@@ -60,6 +62,51 @@ public class AccountService {
         } else {
             System.err.println("No accounts with" + id + "number");
         }
+    }
+
+    //The mean employeeCount
+    public void  getMeanEmployees() {
+        double meanEmployeesFromDb = accountRepository.meanEmployees();
+        String title = "MEAN QUANTITY REPORT OF EMPLOYEES COUNT";
+        String[] headers = {"MEAN EMPLOYEES COUNT                              "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {String.valueOf(meanEmployeesFromDb)};
+        list.add(values);
+        AppHelp.printTable(title, headers, list);
+
+    }
+
+    //The median employeeCount
+    public void getMedianEmployees() {
+        double medianEmployeesFromDb = accountRepository.medianEmployees();
+        String title = "MEDIAN QUANTITY REPORT OF EMPLOYEES COUNT";
+        String[] headers = {"MEDIAN EMPLOYEES COUNT                              "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {String.valueOf(medianEmployeesFromDb)};
+        list.add(values);
+        AppHelp.printTable(title, headers, list);
+    }
+
+    //The maximum employeeCount
+    public void getMaxEmployeeCount() {
+        double maxEmployeesFromDb = accountRepository.maxEmployeeCount();
+        String title = "MAX NUMBER REPORT OF EMPLOYEES COUNT";
+        String[] headers = {"MAX NUMBER EMPLOYEES COUNT                              "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {String.valueOf(maxEmployeesFromDb)};
+        list.add(values);
+        AppHelp.printTable(title, headers, list);
+    }
+
+    //The minimum employeeCount
+    public void getMinEmployeeCount() {
+        double minEmployeesFromDb = accountRepository.minEmployeeCount();
+        String title = "MIN NUMBER REPORT OF EMPLOYEES COUNT";
+        String[] headers = {"MIN NUMBER EMPLOYEES COUNT                              "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {String.valueOf(minEmployeesFromDb)};
+        list.add(values);
+        AppHelp.printTable(title, headers, list);
     }
 
 

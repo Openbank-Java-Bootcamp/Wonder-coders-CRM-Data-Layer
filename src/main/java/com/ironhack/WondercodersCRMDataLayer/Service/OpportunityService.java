@@ -66,12 +66,12 @@ public class OpportunityService {
         String title = "OPPORTUNITY LIST";
 
         // Table headers
-        String[] headers = {"ID                ", "PRODUCT         ", "QUANTITY    ", "DECISION MAKER                                       ", "STATUS            "};
+        String[] headers = {"ID                ", "PRODUCT         ", "QUANTITY    ", "DECISION MAKER                                       ", "ACCOUNT                 ", "STATUS            "};
 
         // List with the data to show
         List<String[]> list = new ArrayList<>();
         for (Opportunity opp : opportunityList) {
-            String[] arr = {opp.getOpportunityId().toString(), opp.getProduct().toString(), Integer.toString(opp.getQuantity()), opp.getDecisionMaker().toString(), opp.getStatus().toString()};
+            String[] arr = {opp.getOpportunityId().toString(), opp.getProduct().toString(), Integer.toString(opp.getQuantity()), Integer.toString(opp.getDecisionMaker().getContactId()), Integer.toString(opp.getAccount().getAccountId()), opp.getStatus().toString()};
             list.add(arr);
         }
 
@@ -86,6 +86,10 @@ public class OpportunityService {
 
         if (opportunityFromDB.isPresent()) { // If opportunity exists
             opportunityFromDB.get().setStatus(Status.CLOSED_WON);
+            opportunityFromDB.get().setOpportunityId(id);
+            opportunityRepository.save(opportunityFromDB.get());
+            System.out.println("Status changed from OPEN to CLOSED_WON");
+            showOpportunity(opportunityFromDB.get());
         } else {
             System.err.println("No opportunity matches '" + id + "' --> Type 'show opportunities' to see the list of available ids.");
         }
@@ -99,148 +103,368 @@ public class OpportunityService {
 
         if (opportunityFromDB.isPresent()) { // If opportunity exists
             opportunityFromDB.get().setStatus(Status.CLOSED_LOST);
+            opportunityFromDB.get().setOpportunityId(id);
+            opportunityRepository.save(opportunityFromDB.get());
+            System.out.println("Status changed from OPEN to CLOSED_LOST");
+            showOpportunity(opportunityFromDB.get());
         } else {
             System.err.println("No opportunity matches '" + id + "' --> Type 'show opportunities' to see the list of available ids.");
         }
     }
 
     // Count of all Opportunities by SalesRep
-    public List<Object[]> reportOpportunitiesBySalesRep() {
-        return opportunityRepository.findAllBySalesRepId();
+    public void reportOpportunitiesBySalesRep() {
+        List<Object[]> opportunities = opportunityRepository.findAllBySalesRepId();
+        String title = "OPPORTUNITY REPORT BY SALES REP";
+        String[] headers = {"SALES REP NAME                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_WON status Opportunities by SalesRep
-    public List<Object[]> reportOpportunitiesByStatusWonAndSalesRep() {
-        return opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_WON);
+    public void reportOpportunitiesByStatusWonAndSalesRep() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_WON);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_WON AND SALES REP";
+        String[] headers = {"SALES REP NAME                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_LOST status Opportunities by SalesRep
-    public List<Object[]> reportOpportunitiesByStatusLostAndSalesRep() {
-        return opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_LOST);
+    public void reportOpportunitiesByStatusLostAndSalesRep() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.CLOSED_LOST);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_LOST AND SALES REP";
+        String[] headers = {"SALES REP NAME                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all OPEN status Opportunities by SalesRep
-    public List<Object[]> reportOpportunitiesByStatusOpenAndSalesRep() {
-        return opportunityRepository.findAllByStatusAndSalesRepId(Status.OPEN);
+    public void reportOpportunitiesByStatusOpenAndSalesRep() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndSalesRepId(Status.OPEN);
+        String title = "OPPORTUNITY REPORT BY STATUS OPEN AND SALES REP";
+        String[] headers = {"SALES REP NAME                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all Opportunities by the Product
-    public List<Object[]> reportOpportunitiesByProduct() {
-        return opportunityRepository.findAllByProduct();
+    public void reportOpportunitiesByProduct() {
+        List<Object[]> opportunities = opportunityRepository.findAllByProduct();
+        String title = "OPPORTUNITY REPORT BY PRODUCT";
+        String[] headers = {"PRODUCT                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_WON status Opportunities by Product
-    public List<Object[]> reportOpportunitiesByStatusWonAndProduct() {
-        return opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_WON);
+    public void reportOpportunitiesByStatusWonAndProduct() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_WON);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_WON AND PRODUCT";
+        String[] headers = {"PRODUCT                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_LOST status Opportunities by Product
-    public List<Object[]> reportOpportunitiesByStatusLostAndProduct() {
-        return opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_LOST);
+    public void reportOpportunitiesByStatusLostAndProduct() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.CLOSED_LOST);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_LOST AND PRODUCT";
+        String[] headers = {"PRODUCT                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all OPEN status Opportunities by Product
-    public List<Object[]> reportOpportunitiesByStatusOpenAndProduct() {
-        return opportunityRepository.findAllByStatusAndProduct(Status.OPEN);
+    public void reportOpportunitiesByStatusOpenAndProduct() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndProduct(Status.OPEN);
+        String title = "OPPORTUNITY REPORT BY STATUS OPEN AND PRODUCT";
+        String[] headers = {"PRODUCT                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all Opportunities by the Country
-    public List<Object[]> reportOpportunitiesByCountry() {
-        return opportunityRepository.findAllByCountry();
+    public void reportOpportunitiesByCountry() {
+        List<Object[]> opportunities = opportunityRepository.findAllByCountry();
+        String title = "OPPORTUNITY REPORT BY COUNTRY";
+        String[] headers = {"COUNTRY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_WON status Opportunities by Country
-    public List<Object[]> reportOpportunitiesByStatusWonAndCountry() {
-        return opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_WON);
+    public void reportOpportunitiesByStatusWonAndCountry() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_WON);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_WON AND COUNTRY";
+        String[] headers = {"COUNTRY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_LOST status Opportunities by Country
-    public List<Object[]> reportOpportunitiesByStatusLostAndCountry() {
-        return opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_LOST);
+    public void reportOpportunitiesByStatusLostAndCountry() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.CLOSED_LOST);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_LOST AND COUNTRY";
+        String[] headers = {"COUNTRY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all OPEN status Opportunities by Country
-    public List<Object[]> reportOpportunitiesByStatusOpenAndCountry() {
-        return opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+    public void reportOpportunitiesByStatusOpenAndCountry() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+        String title = "OPPORTUNITY REPORT BY STATUS OPEN AND COUNTRY";
+        String[] headers = {"COUNTRY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all Opportunities by the City
-    public List<Object[]> reportOpportunitiesByCity() {
-        return opportunityRepository.findAllByCity();
+    public void reportOpportunitiesByCity() {
+        List<Object[]> opportunities = opportunityRepository.findAllByCity();
+        String title = "OPPORTUNITY REPORT BY CITY";
+        String[] headers = {"CITY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_WON status Opportunities by City
-    public List<Object[]> reportOpportunitiesByStatusWonAndCity() {
-        return opportunityRepository.findAllByStatusAndCity(Status.CLOSED_WON);
+    public void reportOpportunitiesByStatusWonAndCity() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCity(Status.CLOSED_WON);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_WON AND CITY";
+        String[] headers = {"CITY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_LOST status Opportunities by City
-    public List<Object[]> reportOpportunitiesByStatusLostAndCity() {
-        return opportunityRepository.findAllByStatusAndCity(Status.CLOSED_LOST);
+    public void reportOpportunitiesByStatusLostAndCity() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCity(Status.CLOSED_LOST);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_LOST AND CITY";
+        String[] headers = {"CITY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all OPEN status Opportunities by City
-    public List<Object[]> reportOpportunitiesByStatusOpenAndCity() {
-        return opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+    public void reportOpportunitiesByStatusOpenAndCity() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+        String title = "OPPORTUNITY REPORT BY STATUS OPEN AND CITY";
+        String[] headers = {"CITY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all Opportunities by the Industry
-    public List<Object[]> reportOpportunitiesByIndustry() {
-        return opportunityRepository.findAllByIndustry();
+    public void reportOpportunitiesByIndustry() {
+        List<Object[]> opportunities = opportunityRepository.findAllByIndustry();
+        String title = "OPPORTUNITY REPORT BY INDUSTRY";
+        String[] headers = {"INDUSTRY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_WON status Opportunities by Industry
-    public List<Object[]> reportOpportunitiesByStatusWonAndIndustry() {
-        return opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_WON);
+    public void reportOpportunitiesByStatusWonAndIndustry() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_WON);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_WON AND INDUSTRY";
+        String[] headers = {"INDUSTRY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all CLOSE_LOST status Opportunities by Industry
-    public List<Object[]> reportOpportunitiesByStatusLostAndIndustry() {
-        return opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_LOST);
+    public void reportOpportunitiesByStatusLostAndIndustry() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndIndustry(Status.CLOSED_LOST);
+        String title = "OPPORTUNITY REPORT BY STATUS CLOSED_LOST AND INDUSTRY";
+        String[] headers = {"INDUSTRY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Count of all OPEN status Opportunities by Industry
-    public List<Object[]> reportOpportunitiesByStatusOpenAndIndustry() {
-        return opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+    public void reportOpportunitiesByStatusOpenAndIndustry() {
+        List<Object[]> opportunities = opportunityRepository.findAllByStatusAndCountry(Status.OPEN);
+        String title = "OPPORTUNITY REPORT BY STATUS OPEN AND INDUSTRY";
+        String[] headers = {"INDUSTRY                                    ", "OPPORTUNITY COUNT                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
     // Mean quantity of products order
-    public List<Object[]> reportMeanQuantity() {
-        return opportunityRepository.meanQuantity();
+    public void reportMeanQuantity() {
+        double meanQuantity = opportunityRepository.meanQuantity();
+        String title = "MEAN QUANTITY REPORT OF PRODUCTS ORDER";
+        String[] headers = {"MEAN QUANTITY                                    "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {String.valueOf(meanQuantity)};
+        list.add(values);
+        AppHelp.printTable(title, headers, list);
     }
 
     // Median quantity of products order
-    public List<Object[]> reportMedianQuantity() {
-        return opportunityRepository.medianQuantity();
+    public void reportMedianQuantity() {
+        double medianQuantity = opportunityRepository.medianQuantity();
+        String title = "MEDIAN QUANTITY REPORT OF PRODUCTS ORDER";
+        String[] headers = {"MEDIAN QUANTITY                                    "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {String.valueOf(medianQuantity)};
+        list.add(values);
+        AppHelp.printTable(title, headers, list);
     }
 
     // Maximum quantity of products order
-    public List<Object[]> reportMaxQuantity() {
-        return opportunityRepository.maxQuantity();
+    public void reportMaxQuantity() {
+        double maxQuantity = opportunityRepository.maxQuantity();
+        String title = "MAXIMUM QUANTITY REPORT OF PRODUCTS ORDER";
+        String[] headers = {"MAXIMUM QUANTITY                                    "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {String.valueOf(maxQuantity)};
+        list.add(values);
+        AppHelp.printTable(title, headers, list);
     }
 
     // Minimum quantity of products order
-    public List<Object[]> reportMinQuantity() {
-        return opportunityRepository.minQuantity();
+    public void reportMinQuantity() {
+        double minQuantity = opportunityRepository.minQuantity();
+        String title = "MINIMUM QUANTITY REPORT OF PRODUCTS ORDER";
+        String[] headers = {"MINIMUM QUANTITY                                    "};
+        List<String[]> list = new ArrayList<>();
+        String[] values = {String.valueOf(minQuantity)};
+        list.add(values);
+        AppHelp.printTable(title, headers, list);
     }
 
-    // Mean quantity of products order
-    public List<Object[]> reportMeanOpportunities() {
-        return opportunityRepository.meanOpportunities();
+    // Mean number of Opportunities associated with an Account
+    public void reportMeanOpportunities() {
+        List<Object[]> opportunities = opportunityRepository.meanOpportunities();
+        String title = "MEAN NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
+        String[] headers = {"ACCOUNT                                    ", "MEAN NUMBER                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
-    // Median quantity of products order
-    public List<Object[]> reportMedianOpportunities() {
-        return opportunityRepository.medianOpportunities();
+    // Median number of Opportunities associated with an Account
+    public void reportMedianOpportunities() {
+        List<Object[]> opportunities = opportunityRepository.medianOpportunities();
+        String title = "MEDIAN NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
+        String[] headers = {"ACCOUNT                                    ", "MEDIAN NUMBER                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
-    // Maximum quantity of products order
-    public List<Object[]> reportMaxOpportunities() {
-        return opportunityRepository.maxOpportunities();
+    // Maximum number of Opportunities associated with an Account
+    public void reportMaxOpportunities() {
+        List<Object[]> opportunities = opportunityRepository.maxOpportunities();
+        String title = "MAXIMUM NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
+        String[] headers = {"ACCOUNT                                    ", "MAXIMUM NUMBER                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 
-    // Minimum quantity of products order
-    public List<Object[]> reportMinOpportunities() {
-        return opportunityRepository.minOpportunities();
+    // Minimum number of Opportunities associated with an Account
+    public void reportMinOpportunities() {
+        List<Object[]> opportunities = opportunityRepository.minOpportunities();
+        String title = "MINIMUM NUMBER OF OPPORTUNITIES ASSOCIATED WITH AN ACCOUNT REPORT";
+        String[] headers = {"ACCOUNT                                    ", "MINIMUM NUMBER                                                                     "};
+        List<String[]> list = new ArrayList<>();
+        for (Object[] object : opportunities) {
+            String[] values = {String.valueOf(object[0]), String.valueOf(object[1])};
+            list.add(values);
+        }
+        AppHelp.printTable(title, headers, list);
     }
 }
