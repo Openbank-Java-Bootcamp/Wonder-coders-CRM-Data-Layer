@@ -102,7 +102,7 @@ public class App {
         Command reportClosedLostByIndustry = new Command("report closed-lost by industry", "report closed-lost by industry", "Display a count of all CLOSED_LOST Opportunities by Industry", () -> opportunityService.reportOpportunitiesByStatusLostAndIndustry(), true);
         Command reportOpenByIndustry = new Command("report open by industry", "report open by industry", "Display a count of all OPEN Opportunities by Industry", () -> opportunityService.reportOpportunitiesByStatusOpenAndIndustry(), true);
         // EmployeeCount States
-        Command reportMeanEmployeeCount = new Command("mean employee count", "mean employee count", "Display the mean employee count", () -> accountService.getMeanEmployees()(), true);
+        Command reportMeanEmployeeCount = new Command("mean employee count", "mean employee count", "Display the mean employee count", () -> accountService.getMeanEmployees(), true);
         Command reportMedianEmployeeCount = new Command("median employee count", "median employee count", "Display the median employee count", () -> accountService.getMedianEmployees(), true);
         Command reportMaxEmployeeCount = new Command("max employee count", "max employee count", "Display the max employee count", () -> accountService.getMaxEmployeeCount(), true);
         Command reportMinEmployeeCount = new Command("min employee count", "min employee count", "Display the min employee count", () -> accountService.getMinEmployeeCount(), true);
