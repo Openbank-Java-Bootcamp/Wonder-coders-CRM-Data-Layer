@@ -71,14 +71,51 @@ public class App {
         // OPPORTUNITIES
         Command findOpportunity = new Command("lookup opportunity #", "lookup opportunity <IdNumber>", "print opportunity with ID = <IdNumber>", () -> opportunityService.lookUpOpportunity(),false);
         Command showOpportunities = new Command("show opportunities", "show opportunities", "print list of all active opportunities", () -> opportunityService.showOpportunities(),false);
-
-        //-------------------------------------------
         Command closeWon = new Command("close-won #", "close-won <IdNumber>", "Closing opportunity with ID = <IdNumber> with status = WON", () -> opportunityService.closeWon(),false);
         Command closeLost = new Command("close-lost #", "close-lost <IdNumber>", "Closing opportunity with ID = <IdNumber> with status = LOST", () -> opportunityService.closeLost(),false);
 
-        // REPORTS
-        Command reportLeadBySalesRep = new Command("report lead by sales rep", "report lead by sales rep", "print list of all sales rep with their lead count", () -> leadService.reportLeadBySalesRep(), true);
-
+        // REPORTS:
+        // By SalesRep
+        Command reportLeadBySalesRep = new Command("report lead by sales rep", "report lead by sales rep", "Display a count of Leads by SalesRep", () -> leadService.reportLeadBySalesRep(), true);
+        Command reportOpportunityBySalesRep = new Command("report opportunity by salesrep", "report opportunity by salesrep", "Display a count of all Opportunities by SalesRep", () -> opportunityService.reportOpportunitiesBySalesRep(), true);
+        Command reportClosedWonBySalesRep = new Command("report closed-won by salesrep", "report closed-won by salesrep", "Display a count of all CLOSED_WON Opportunities by SalesRep", () -> opportunityService.reportOpportunitiesByStatusWonAndSalesRep(), true);
+        Command reportClosedLostBySalesRep = new Command("report closed-lost by salesrep", "report closed-lost by salesrep", "Display a count of all CLOSED_LOST Opportunities by SalesRep", () -> opportunityService.reportOpportunitiesByStatusLostAndSalesRep(), true);
+        Command reportOpenBySalesRep = new Command("report open by salesrep", "report open by salesrep", "Display a count of all OPEN Opportunities by SalesRep", () -> opportunityService.reportOpportunitiesByStatusOpenAndSalesRep(), true);
+        // By Product
+        Command reportOpportunityByProduct = new Command("report opportunity by the product", "report opportunity by the product", "Display a count of all Opportunities by the product", () -> opportunityService.reportOpportunitiesByProduct(), true);
+        Command reportClosedWonByProduct = new Command("report closed-won by the product", "report closed-won by the product", "Display a count of all CLOSED_WON Opportunities by the product", () -> opportunityService.reportOpportunitiesByStatusWonAndProduct(), true);
+        Command reportClosedLostByProduct = new Command("report closed-lost by the product", "report closed-lost by the product", "Display a count of all CLOSED_LOST Opportunities by the product", () -> opportunityService.reportOpportunitiesByStatusLostAndProduct(), true);
+        Command reportOpenByProduct = new Command("report open by the product", "report open by the product", "Display a count of all OPEN Opportunities by the product", () -> opportunityService.reportOpportunitiesByStatusOpenAndProduct(), true);
+        // By Country
+        Command reportOpportunityByCountry = new Command("report opportunity by country", "report opportunity by country", "Display a count of all Opportunities by country", () -> opportunityService.reportOpportunitiesByCountry(), true);
+        Command reportClosedWonByCountry = new Command("report closed-won by country", "report closed-won by country", "Display a count of all CLOSED_WON Opportunities by country", () -> opportunityService.reportOpportunitiesByStatusWonAndCountry(), true);
+        Command reportClosedLostByCountry = new Command("report closed-lost by country", "report closed-lost by country", "Display a count of all CLOSED_LOST Opportunities by country", () -> opportunityService.reportOpportunitiesByStatusLostAndCountry(), true);
+        Command reportOpenByCountry = new Command("report open by country", "report open by country", "Display a count of all OPEN Opportunities by country", () -> opportunityService.reportOpportunitiesByStatusOpenAndCountry(), true);
+        // By City
+        Command reportOpportunityByCity = new Command("report opportunity by city", "report opportunity by city", "Display a count of all Opportunities by city", () -> opportunityService.reportOpportunitiesByCity(), true);
+        Command reportClosedWonByCity = new Command("report closed-won by city", "report closed-won by city", "Display a count of all CLOSED_WON Opportunities by city", () -> opportunityService.reportOpportunitiesByStatusWonAndCity(), true);
+        Command reportClosedLostByCity = new Command("report closed-lost by city", "report closed-lost by city", "Display a count of all CLOSED_LOST Opportunities by city", () -> opportunityService.reportOpportunitiesByStatusLostAndCity(), true);
+        Command reportOpenByCity = new Command("report open by city", "report open by city", "Display a count of all OPEN Opportunities by city", () -> opportunityService.reportOpportunitiesByStatusOpenAndCity(), true);
+        // By Industry
+        Command reportOpportunityByIndustry = new Command("report opportunity by industry", "report opportunity by industry", "Display a count of all Opportunities by Industry", () -> opportunityService.reportOpportunitiesByIndustry(), true);
+        Command reportClosedWonByIndustry = new Command("report closed-won by industry", "report closed-won by industry", "Display a count of all CLOSED_WON Opportunities by Industry", () -> opportunityService.reportOpportunitiesByStatusWonAndIndustry(), true);
+        Command reportClosedLostByIndustry = new Command("report closed-lost by industry", "report closed-lost by industry", "Display a count of all CLOSED_LOST Opportunities by Industry", () -> opportunityService.reportOpportunitiesByStatusLostAndIndustry(), true);
+        Command reportOpenByIndustry = new Command("report open by industry", "report open by industry", "Display a count of all OPEN Opportunities by Industry", () -> opportunityService.reportOpportunitiesByStatusOpenAndIndustry(), true);
+        // EmployeeCount States
+        Command reportMeanEmployeeCount = new Command("mean employee count", "mean employee count", "Display the mean employee count", () -> accountService.getMeanEmployees()(), true);
+        Command reportMedianEmployeeCount = new Command("median employee count", "median employee count", "Display the median employee count", () -> accountService.getMedianEmployees(), true);
+        Command reportMaxEmployeeCount = new Command("max employee count", "max employee count", "Display the max employee count", () -> accountService.getMaxEmployeeCount(), true);
+        Command reportMinEmployeeCount = new Command("min employee count", "min employee count", "Display the min employee count", () -> accountService.getMinEmployeeCount(), true);
+        // Quantity States
+        Command reportMeanProdQuantity = new Command("mean quantity", "mean quantity", "Display the mean quantity of products order", () -> opportunityService.reportMeanQuantity(), true);
+        Command reportMedianProdQuantity = new Command("median quantity", "median quantity", "Display the median quantity of products order", () -> opportunityService.reportMedianQuantity(), true);
+        Command reportMaxProdQuantity = new Command("max quantity", "max quantity", "Display the max quantity of products order", () -> opportunityService.reportMaxQuantity(), true);
+        Command reportMinProdQuantity = new Command("min quantity", "min quantity", "Display the min quantity of products order", () -> opportunityService.reportMinQuantity(), true);
+        // Opportunity States
+        Command reportMeanAccOpportunity = new Command("mean opps per account", "mean opps per account", "Display the mean number of Opportunities associated with an Account", () -> opportunityService.reportMeanOpportunities(), true);
+        Command reportMedianAccOpportunity = new Command("median opps per account", "median opps per account", "Display the median number of Opportunities associated with an Account", () -> opportunityService.reportMedianOpportunities(), true);
+        Command reportMaxAccOpportunity = new Command("max opps per account", "max opps per account", "Display the max number of Opportunities associated with an Account", () -> opportunityService.reportMaxOpportunities(), true);
+        Command reportMinAccOpportunity = new Command("min opps per account", "min opps per account", "Display the min number of Opportunities associated with an Account", () -> opportunityService.reportMinOpportunities(), true);
     }
 
     public void showIntro() {
