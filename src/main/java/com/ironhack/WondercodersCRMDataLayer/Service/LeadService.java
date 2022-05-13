@@ -113,19 +113,25 @@ public class LeadService {
         int id = Integer.parseInt(AppHelp.getId());
         if (leadRepository.findById(id).isPresent()) {
 
+            //Create a new contact with the information of the lead.
+
+
             //Define all the parameters first.
             String name = leadRepository.findById(id).get().getName();
             String phoneNumber = leadRepository.findById(id).get().getPhoneNumber();
             String email = leadRepository.findById(id).get().getEmail();
+            Contact decisionMaker = new Contact(name, phoneNumber, email);
+            SalesRep salesRep = leadRepository.findById(id).get().getSalesRepId();
+            decisionMaker.setSalesRepId(salesRep);
+
+
+
             String companyName = leadRepository.findById(id).get().getCompanyName();
             Product[] productType = {Product.HYBRID, Product.FLATBED, Product.BOX};
             Industry[] industryType = {Industry.PRODUCE, Industry.ECOMMERCE, Industry.MANUFACTURING, Industry.MEDICAL, Industry.OTHER};
-            SalesRep salesRep = leadRepository.findById(id).get().getSalesRepId();
+
             Account newAccount = new Account();
 
-            //Create a new contact with the information of the lead.
-            Contact decisionMaker = new Contact(name, phoneNumber, email);
-            decisionMaker.setSalesRepId(salesRep);
             System.out.println("New contact created from Lead " + id);
             contactService.showContact(decisionMaker);
 

@@ -41,16 +41,6 @@ public class SalesRep {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    /*
-    public Set<Lead> getLeads() { return leads; }
-    public Set<Opportunity> getOpportunities() { return opportunities; }
-    public Set<Contact> getContacts() { return contacts;}
-
-    // Methods
-    public void addLead(Lead lead) { this.leads.add(lead); }
-    public void addOpportunity(Opportunity opportunity) { this.opportunities.add(opportunity); }
-    public void addContact(Contact contact) { this.contacts.add(contact); }
-    */
 
     // Overridden methods
     @Override
@@ -58,7 +48,6 @@ public class SalesRep {
         return "SalesRep " + salesRepId + ": " + name;
     }
 
-    // TEMPORARY ----> to be changed whe the rest of classes exist
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,22 +56,4 @@ public class SalesRep {
         return Objects.equals(salesRepId, salesRep.salesRepId) && Objects.equals(name, salesRep.name);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(salesRepId, name);
-    }
-/*
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SalesRep salesRep = (SalesRep) o;
-        return salesRepId == salesRep.salesRepId && Objects.equals(name, salesRep.name) && Objects.equals(leads, salesRep.leads) && Objects.equals(opportunities, salesRep.opportunities) && Objects.equals(contacts, salesRep.contacts);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(salesRepId, name, leads, opportunities, contacts);
-    }
-    */
 }
