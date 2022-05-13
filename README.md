@@ -10,6 +10,8 @@ In the upgraded version, a reporting feature is available. Companies will be abl
 ### Image from the app:
 ![how to use](./src/images/howToUse.png)
 
+![how to use](./src/images/howToUse1.png)
+
 ### Use case diagram:
 ![use case diagram](./src/images/useCase.png)
 
