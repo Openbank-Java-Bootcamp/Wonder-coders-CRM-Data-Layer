@@ -56,7 +56,7 @@ public class AppHelp {
         do {
             System.out.println(question);
             entry = scanner.nextLine();
-            ok = entry.equals("yes") || entry.equals("yes") ? true : false;
+            ok = entry.equals("yes") || entry.equals("no") ? true : false;
             if(!ok) System.err.println("Only 'yes' and 'no' are valid answers");
         } while (!ok);
         return entry;

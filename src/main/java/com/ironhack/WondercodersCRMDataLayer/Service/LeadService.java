@@ -139,9 +139,7 @@ public class LeadService {
             opportunityService.showOpportunity(newOpportunity);
 
             //Ask if a new Account needs to be created or not
-            String answer = AppHelp.askForYesOrNo("Would you like to create a new Account to associate with?");
-            if (answer.equals("yes")) {
-                //Create a new account with the information we asked the user and the information of the lead.
+            if (accountRepository.findAll().size() == 0) {
                 System.out.println("Creating a new account.");
                 Industry industry = industryType[AppHelp.selectOption("What industry is the company in?", industryType)];
                 int employeeCount = AppHelp.askForInt("How many employees are in the company?");
@@ -156,6 +154,21 @@ public class LeadService {
                 newAccount.setOpportunityList(new ArrayList<>());
                 System.out.println("New account created from Lead " + id);
             } else {
+            String answer = AppHelp.askForYesOrNo("Would you like to create a new Account to associate with?");
+            if (answer.equals("yes")) {
+                //Create a new account with the information we asked the user and the information of the lead.
+                System.out.println("Creating a new account.");
+                Industry industry = industryType[AppHelp.selectOption("What industry is the company in?", industryType)];
+                int employeeCount = AppHelp.askForInt("How many employees are in the company?");
+                String city = AppHelp.askForString("What city is the company located in?");
+                String country = AppHelp.askForString("What country is the company from?");
+                newAccount.setCompanyName(companyName);
+                newAccount.setIndustry(industry);
+                newAccount.setEmployeeCount(employeeCount);
+                newAccount.setCity(city);
+                newAccount.setCountry(country);
+                System.out.println("New account created from Lead " + id);
+            } else {
                 //Ask for existing account id.
                 int accountId = AppHelp.askForInt("Existing Account id : ");
                 while (accountRepository.findById(accountId).isEmpty()) {
@@ -165,12 +178,9 @@ public class LeadService {
                 }
                 newAccount.setAccountId(accountId);
                 newAccount = accountRepository.findById(accountId).get();
-            }
+            }}
             //Add the newly created decision maker and opportunity to the new accounts contacts list and opportunities list.
-            newAccount.getContactList().add(decisionMaker);
-            newAccount.getOpportunityList().add(newOpportunity);
             decisionMaker.setAccount(newAccount);
-            decisionMaker.setOpportunity(newOpportunity);
             newOpportunity.setAccount(newAccount);
             accountService.showAccount(newAccount);
 
@@ -182,7 +192,7 @@ public class LeadService {
 
 
             //Remove the lead from the database once all the process is completed.
-            //removeLead();
+            removeLead();
         } else {
             System.err.println("No lead matches '" + id + "' --> Type 'show leads' to see the list of available ids.");
         }

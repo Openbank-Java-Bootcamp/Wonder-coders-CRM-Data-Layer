@@ -34,7 +34,7 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Contact> contactList;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Opportunity> opportunityList;
 
     public Account() {
@@ -46,8 +46,6 @@ public class Account {
         this.employeeCount = employeeCount;
         this.city = city;
         this.country = country;
-        this.contactList = new ArrayList<>();
-        this.opportunityList = new ArrayList<>();
     }
 
     public Integer getAccountId() {
